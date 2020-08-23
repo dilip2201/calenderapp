@@ -12,7 +12,7 @@
     <meta name="author" content="PIXINVENT">
     <title>@yield('pageTitle') | Foodism</title>
     <link rel="apple-touch-icon" href="{{ URL::asset('public/app-assets/images/ico/apple-icon-120.png') }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('public/app-assets/images/ico/favicon.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('public/images/favicon_icon.png') }}">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
@@ -42,6 +42,13 @@
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('public/assets/css/style.css') }}">
     <!-- END: Custom CSS-->
-
+    <style>
+    .horizontal-menu .header-navbar.navbar-brand-center .navbar-header .navbar-brand .brand-logo {
+      background :  url("{{ asset('public/images/favicon_icon.png') }}")  no-repeat;
+      background-position : -65px -54px;
+      height : 24px;
+      width : 35px;
+    }
+    </style>
 </head>
 <!-- END: Head-->
