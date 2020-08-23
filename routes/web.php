@@ -29,6 +29,16 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 	Route::get('profile', ['as' => 'profile', 'uses' => 'DashboardController@profile']);
 	Route::post('profileupdate', ['as' => 'profileupdate', 'uses' => 'DashboardController@profileupdate']);
 	Route::post('changepassword', ['as' => 'changepassword', 'uses' => 'DashboardController@changepassword']);
+   // Route::group(['middleware' => 'check-permission:super_admin'], function () {
+        /******************** User Dev : Vikas 23-08 ***********************/
+        Route::resource('users', 'UserController');
+        Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+            Route::post('getall', ['as' => 'getall', 'uses' => 'UserController@getall']);
+            Route::post('getmodal', ['as' => 'getmodal', 'uses' => 'UserController@getmodal']);
+            Route::post('changestatus', ['as' => 'changestatus', 'uses' => 'UserController@changestatus']);
+        });
+   // });
+        
 	
 });
 
