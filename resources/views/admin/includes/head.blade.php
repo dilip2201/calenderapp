@@ -14,7 +14,7 @@
     <link rel="apple-touch-icon" href="{{ URL::asset('public/app-assets/images/ico/apple-icon-120.png') }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('public/images/favicon_icon.png') }}">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
-
+    
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('public/app-assets/vendors/css/vendors.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('public/app-assets/vendors/css/charts/apexcharts.css') }}">
