@@ -2,13 +2,7 @@
 <html class="loading" lang="en" data-textdirection="ltr">
    <!-- BEGIN: Head-->
    <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-      <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
-      <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
-      <meta name="author" content="PIXINVENT">
-      <title>Login Page - Vuexy - Bootstrap HTML admin template</title>
+      <title>Login Page - Foodism</title>
       <link rel="apple-touch-icon" href="{{ URL::asset('public/app-assets/images/ico/apple-icon-120.png') }}">
       <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('public/app-assets/images/ico/favicon.ico') }}">
       <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
@@ -27,9 +21,8 @@
       <link rel="stylesheet" type="text/css" href="{{ URL::asset('public/app-assets/css/core/colors/palette-gradient.css') }}">
       <link rel="stylesheet" type="text/css" href="{{ URL::asset('public/app-assets/css/pages/authentication.css') }}">
       <!-- END: Page CSS-->
-      <!-- BEGIN: Custom CSS-->
-      <link rel="stylesheet" type="text/css" href="{{ URL::asset('public/app-assets/css/bootstrap.css') }}public/assets/css/style.css">
-      <!-- END: Custom CSS-->
+      <link rel="stylesheet" type="text/css" href="{{ URL::asset('public/assets/css/style.css') }}">
+      <link rel="stylesheet" type="text/css" href="{{ URL::asset('public/css/developer.css') }}">
    </head>
    <!-- END: Head-->
    <!-- BEGIN: Body-->
@@ -46,23 +39,23 @@
                   <div class="col-xl-8 col-11 d-flex justify-content-center">
                      <div class="card bg-authentication rounded-0 mb-0">
                         <div class="row m-0">
-                           <div class="col-lg-6 d-lg-block d-none text-center align-self-center px-1 py-0">
-                              <img src="{{ URL::asset('public/app-assets/images/pages/login.png') }}" alt="branding logo">
+                           <div class="col-lg-3 d-lg-block d-none text-center align-self-center px-1 py-0">
+                              <img src="{{ URL::asset('public/images/logo.png') }}" alt="branding logo" style="height: 280px; width: auto;">
                            </div>
-                           <div class="col-lg-6 col-12 p-0">
-                              <div class="card rounded-0 mb-0 px-2">
+                           <div class="col-lg-9 col-12 p-0">
+                              <div class="card rounded-0 mb-0 ">
                                  <div class="card-header pb-1">
                                     <div class="card-title">
-                                       <h4 class="mb-0">Login</h4>
+                                       <h4 class="mb-0 text-black">Login</h4>
                                     </div>
                                  </div>
-                                 <p class="px-2">Welcome back, please login to your account.</p>
+                                 <p class="px-2 text-black">Welcome back, please login to your account.</p>
                                  <div class="card-content">
                                     <div class="card-body pt-1">
                                        <form method="POST" action="{{ route('login') }}">
                                           @csrf
                                           <fieldset class="form-label-group form-group position-relative has-icon-left">
-                                             <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" id="email" placeholder="Username" required autocomplete="email" autofocus>
+                                             <input type="text" class="form-control @error('email') is-invalid @enderror text-black" name="email" value="{{ old('email') }}" id="email" placeholder="Email" required autocomplete="email" autofocus>
                                              @error('email')
                                              <span class="invalid-feedback" role="alert">
                                              <strong>{{ $message }}</strong>
@@ -71,10 +64,10 @@
                                              <div class="form-control-position">
                                                 <i class="feather icon-user"></i>
                                              </div>
-                                             <label for="user-name">Username</label>
+                                             <label for="user-name">Email</label>
                                           </fieldset>
                                           <fieldset class="form-label-group position-relative has-icon-left">
-                                             <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Password" required  autocomplete="current-password">
+                                             <input type="password" name="password" class="form-control @error('password') is-invalid @enderror text-black" id="password" placeholder="Password" required  autocomplete="new-password">
                                              @error('password')
                                              <span class="invalid-feedback" role="alert">
                                              <strong>{{ $message }}</strong>
@@ -87,10 +80,11 @@
                                           </fieldset>
                                           <div class="form-group d-flex justify-content-between align-items-center">
                                              @if (Route::has('password.request'))
-                                             <div class="text-right"><a href="{{ route('password.request') }}" class="card-link">Forgot Password?</a></div>
+                                             <div class="text-right"><a  href="{{ route('password.request') }}" class="card-link text-black">Forgot Password?</a></div>
                                              @endif
                                              <button type="submit" class="btn btn-primary float-right btn-inline">Login</button>
                                           </div>
+                                          <input id="password-confirm" type="password" placeholder="Confirm Password" name="asaspassword_confirmation" autocomplete="new-password" style="display: none;">
                                        </form>
                                     </div>
                                  </div>

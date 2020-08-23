@@ -3,16 +3,10 @@
 <!-- BEGIN: Head-->
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
-    <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
-    <meta name="author" content="PIXINVENT">
-    <title>Forgot Password - Vuexy - Bootstrap HTML admin template</title>
-    <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
-    <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
+    <title>Forgot Password - Foodism</title>
+      <link rel="apple-touch-icon" href="{{ URL::asset('public/app-assets/images/ico/apple-icon-120.png') }}">
+      <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('public/app-assets/images/ico/favicon.ico') }}">
+      <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
 
      <!-- BEGIN: Vendor CSS-->
       <link rel="stylesheet" type="text/css" href="{{ URL::asset('public/app-assets/vendors/css/vendors.min.css') }}">
@@ -49,26 +43,40 @@
             </div>
             <div class="content-body">
                 <section class="row flexbox-container">
-                    <div class="col-xl-7 col-md-9 col-10 d-flex justify-content-center px-0">
+                    <div class="col-xl-4 col-md-9 col-10 d-flex justify-content-center px-0">
                         <div class="card bg-authentication rounded-0 mb-0">
                             <div class="row m-0">
-                                <div class="col-lg-6 d-lg-block d-none text-center align-self-center">
-                                    <img src="{{ URL::asset('public/app-assets/images/pages/login.png') }}" alt="branding logo">
+                                <div class="col-lg-3 d-lg-block d-none text-center align-self-center">
+                                    <img src="{{ URL::asset('public/images/logo.png') }}" alt="branding logo"  style="height: 230px; width: auto;">
                                 </div>
-                                <div class="col-lg-6 col-12 p-0">
-                                    <div class="card rounded-0 mb-0 px-2 py-1">
+                                <div class="col-lg-9 col-12 p-0">
+                                    <div class="card rounded-0 mb-0  py-1">
                                         <div class="card-header pb-1">
                                             <div class="card-title">
-                                                <h4 class="mb-0">Recover your password</h4>
+                                                <h4 class="mb-0  text-black">Recover your password</h4>
                                             </div>
                                         </div>
-                                        <p class="px-2 mb-0">Please enter your email address and we'll send you instructions on how to reset your password.</p>
+                                        <p class="px-2 mb-0  text-black">Please enter your email address and we'll send you instructions on how to reset your password.</p>
                                         <div class="card-content">
                                             <div class="card-body">
+                                              @if (session('status'))
+                                               <div class="alert alert-success" role="alert" style="max-width: 410px;
+                                                  margin: 0 auto;
+                                                  color: #000;
+                                                  background: no-repeat;
+                                                  border: 1px solid #000!important;
+                                                  color: #000;
+                                                  background: none;
+                                                  margin-bottom: 10px;
+                                                  font-size: 14px;
+                                              ">
+                                                  Password reset link send to your registered email address!
+                                               </div>
+                                               @endif
                                                 <form method="POST" action="{{ route('password.email') }}">
                                                     @csrf
                                                     <div class="form-label-group">
-                                                        <input type="email"  name="email"  id="inputEmail" class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email') }}" required autocomplete="email" autofocus >
+                                                        <input type="email"  name="email"  id="inputEmail" class="form-control @error('email') is-invalid @enderror  text-black" placeholder="Email" value="{{ old('email') }}" required autocomplete="email" autofocus >
                                                         <label for="inputEmail">Email</label>
                                                         @error('email')
                                                             <span class="invalid-feedback" role="alert">

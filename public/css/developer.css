@@ -1,3 +1,61 @@
 .form-control.is-invalid{
 	background: none!important;
 }
+
+
+.btn-primary {
+    
+    background-color: #ffbb05 !important;
+    color: #000!important;
+        border: 1px solid #000!important;
+}
+
+.btn-primary:hover {
+    border: 1px solid #000!important;
+    color: #000 !important;
+    box-shadow: 0 8px 25px -8px #000;
+}
+
+.text-black{
+	color: #000!important;
+}
+
+.form-control:focus {
+    color: #000!important;
+    border-color: #000!important;
+    
+    
+}
+
+.has-icon-left .form-control-position i{
+	color: #000!important;
+}
+
+.form-control{
+	border: 1px solid #000!important;
+}
+
+html .pace .pace-progress{
+	    background: #000!important;
+}
+
+::-webkit-input-placeholder { /* Edge */
+  color: #000!important;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #000!important;
+}
+
+::placeholder {
+  color: #000!important;
+}
+
+.form-label-group > input:not(:focus):not(:placeholder-shown) ~ label, .form-label-group textarea:not(:focus):not(:placeholder-shown) ~ label
+{
+	color: #000!important;
+}
+
+.bg-authentication {
+    border: 1px solid #000!important;
+}
