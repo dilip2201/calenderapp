@@ -59,3 +59,15 @@ html .pace .pace-progress{
 .bg-authentication {
     border: 1px solid #000!important;
 }
+
+.btn-outline-primary{
+  border: 1px solid #000!important;
+    background-color: transparent;
+    color: #000!important;
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled):active, .btn-outline-primary:not(:disabled):not(.disabled).active, .show > .btn-outline-primary.dropdown-toggle {
+    color: #000!important;
+    background-color: transparent!important;
+    border-color: 1px solid #000!important;
+}
