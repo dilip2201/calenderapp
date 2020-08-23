@@ -58,6 +58,13 @@ class DashboardController extends Controller
             'email' => 'Please enter email.',
             //'image.mimes' => 'Upload image with valid extension. Only .jpg, .jpeg, .png and .gif extensions are allowed.',
         ];
+         if (isset(Auth::user()->id)) {
+         
+            $rules['email'] = 'required|unique:users,email,'.Auth::user()->id;
+        }else{
+            $rules['email'] = 'required|unique:users,email';
+          
+        }
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
