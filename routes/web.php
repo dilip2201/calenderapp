@@ -20,3 +20,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () { 
+
+	/***************** Dashboard *************************/
+	Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'DashboardController@index']);
+	
+});
+
+
+
+
