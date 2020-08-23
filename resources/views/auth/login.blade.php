@@ -3,13 +3,13 @@
    <!-- BEGIN: Head-->
    <head>
       <title>Login Page - Foodism</title>
-      <link rel="apple-touch-icon" href="{{ URL::asset('public/app-assets/images/ico/apple-icon-120.png') }}">
-      <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('public/app-assets/images/ico/favicon.ico') }}">
+      <link rel="icon" type="image/x-icon" href="{{ URL::asset('public/images/favicon_icon.png') }}">
       <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
       <!-- BEGIN: Vendor CSS-->
       <link rel="stylesheet" type="text/css" href="{{ URL::asset('public/app-assets/vendors/css/vendors.min.css') }}">
       <!-- END: Vendor CSS-->
       <!-- BEGIN: Theme CSS-->
+      <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('public/images/favicon_icon.png') }}">
       <link rel="stylesheet" type="text/css" href="{{ URL::asset('public/app-assets/css/bootstrap.css') }}">
       <link rel="stylesheet" type="text/css" href="{{ URL::asset('public/app-assets/css/bootstrap-extended.css') }}">
       <link rel="stylesheet" type="text/css" href="{{ URL::asset('public/app-assets/css/colors.css') }}">
