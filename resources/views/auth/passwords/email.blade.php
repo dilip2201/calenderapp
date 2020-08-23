@@ -62,11 +62,11 @@
                                               @if (session('status'))
                                                <div class="alert alert-success" role="alert" style="max-width: 410px;
                                                   margin: 0 auto;
-                                                  color: #000;
+                                                  color: #000!important;
                                                   background: no-repeat;
                                                   border: 1px solid #000!important;
                                                   color: #000;
-                                                  background: none;
+                                                  background: none!important;
                                                   margin-bottom: 10px;
                                                   font-size: 14px;
                                               ">
@@ -86,7 +86,7 @@
                                                     </div>
                                                 
                                                     <div class="float-md-left d-block mb-1">
-                                                        <a href="{{ url('login') }}" class="btn btn-outline-primary btn-block px-75">Back to Login</a>
+                                                        <a href="{{ url('login') }}" class="btn btn-outline-primary btn-block px-75"><i class="fa fa-angle-double-left" ></i> Back to Login</a>
                                                     </div>
                                                 
                                                     <div class="float-md-right d-block mb-1">
