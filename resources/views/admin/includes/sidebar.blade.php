@@ -12,7 +12,8 @@
                
                 <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
                     <li class="nav-item active" ><a class="nav-link" href="{{ url('admin/dashboard')}}"><i class="feather icon-home"></i><span>Dashboard</span></a>
-                      
+                    </li>
+                    <li class="nav-item" ><a class="nav-link" href="{{ url('admin/users')}}"><i class="fa fa-user" aria-hidden="true"></i><span>User</span></a>
                     </li>
                     <li class="nav-item" ><a class="nav-link" href="{{ url('admin/dashboard')}}"><i class="fa fa-list" aria-hidden="true"></i><span>DMS</span></a>
                       

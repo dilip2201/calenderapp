@@ -42,6 +42,7 @@
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('public/assets/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('public/css/admindev.css') }}">
+      <link rel="stylesheet" type="text/css" href="{{ URL::asset('public/admin/Pnotify/pnotify.custom.min.css') }}" />
     <!-- END: Custom CSS-->
     <style>
     .horizontal-menu .header-navbar.navbar-brand-center .navbar-header .navbar-brand .brand-logo {
