@@ -18,7 +18,7 @@
                 <label>Last Name</label>
                 <input type="text" class="form-control" name="lastname"
                        placeholder="Last Name"
-                       value="@if(!empty($user)){{ $user->lastname }}@endif" required="" maxlength="30">
+                       value="@if(!empty($user)){{ $user->last_name }}@endif" required="" maxlength="30">
             </div>
         </div>
         <div class="col-sm-12 col-md-6">
@@ -76,3 +76,9 @@
     </div>
 </form>
 
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.min.js"></script>

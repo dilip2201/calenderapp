@@ -56,12 +56,15 @@
                 </div>
                 <!-- /.card -->
             </div>
-            <div class="dt-buttons btn-group"><button class="btn btn-outline-primary" tabindex="0" aria-controls="DataTables_Table_0"><span><i class="feather icon-plus"></i> Add New</span></button> </div>
+            <div class="dt-buttons btn-group"><button data-toggle="modal" data-typeid="" data-target=".add_modal" class="btn btn-outline-primary openaddmodal" tabindex="0" aria-controls="DataTables_Table_0"><span><i class="feather icon-plus"></i> Add New</span></button> </div>
             <div class="card  card-outline">
                
                 <div class="card-body">
                     <!-- /.card-header -->
-                    <table id="employee" class="table table-bordered table-hover" style="background: #fff;">
+                    
+                    <div class="table-responsive">
+                        <table  id="employee"class="table zero-configuration">
+                   
                         <thead>
                         <tr>
                             <th>#</th>
@@ -77,6 +80,7 @@
 
                         </tbody>
                     </table>
+                </div>
                     <!-- /.card-body -->
                     <!-- /.card -->
                 </div>
@@ -109,12 +113,25 @@
 
 
 
- <script
-  src="https://code.jquery.com/jquery-3.5.1.min.js"
-  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-  crossorigin="anonymous"></script>
+<script src="https://jqueryvalidation.org/files/lib/jquery.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <script>
+                function readURL(input, classes) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('.' + classes).attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $('body').on('change', '.logo_image', function() {
+            readURL(this, 'image_preview');
+        });
 
         $(function () {
             /* datatable */
@@ -152,7 +169,8 @@
                     /********* add new employee ********/
         $('body').on('click', '.openaddmodal', function () {
             var id = $(this).data('id');
-            if (id == '') {
+            
+            if (id == undefined) {
                 $('.modal-title').text('Add User');
             } else {
                 $('.modal-title').text('Edit User');
@@ -166,9 +184,8 @@
                 data: {id: id},
                 success: function (data) {
                     $('.addholidaybody').html(data);
-                        $(".formsubmit").validate({
-
-                    });
+                     $(".formsubmit").validate();
+                       
 
                 },
             });
