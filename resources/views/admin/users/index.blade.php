@@ -2,7 +2,7 @@
 @section('content')
 @section('pageTitle', 'Users')
 
-<div class="container">
+
     <!-- Info boxes -->
 
     <div class="row">
@@ -41,15 +41,9 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-2" style="padding-left: 0px;">
-                                <button class="btn btn-success btn-sm searchdata"
-                                        style="margin-top: 33px;padding: 6px 16px;">Search <span
-                                        class="spinner"></span>
-                                </button>
-                                <a href="{{ route('admin.users.index') }}" class="btn btn-danger btn-sm"
-                                   style="margin-top: 33px;margin-left: 5px;padding: 6px 16px;cursor: pointer; ">
-                                    <i class="fa fa-refresh" aria-hidden="true"></i> Reset
-                                </a>
+                            <div class="col-md-3" style="padding-left: 0px;">
+                                <button type="button" class="btn btn-success  waves-effect waves-light searchdata"  style="margin-top:18px;"><i class="fa fa-search"></i> Search</button>
+                                <a href="{{ route('admin.users.index') }}"  class="btn btn-danger waves-effect waves-light" style="margin-top: 18px;"><i class="fa fa-refresh" aria-hidden="true"></i> Reset</a>
                             </div>
                         </div>
                     </div>
@@ -90,7 +84,7 @@
 
     </div>
     <!-- /.row -->
-</div>
+
 <!--/. container-fluid -->
 <div class="modal fade add_modal" >
     <div class="modal-dialog">
