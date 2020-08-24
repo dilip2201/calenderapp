@@ -27,4 +27,6 @@
     <script src="{{ URL::asset('public/app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js') }}"></script>
      <link rel="stylesheet" type="text/css" href="{{ URL::asset('public/app-assets/vendors/css/tables/datatable/datatables.min.css') }}">
      <script src="{{ URL::asset('public/admin/Pnotify/pnotify.custom.min.js') }}"></script>
+
+     @stack('script')
     <!-- END: Page JS-->
