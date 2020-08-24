@@ -11,11 +11,14 @@
             </div>        <div class="navbar-container main-menu-content" data-menu="menu-container">
                
                 <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
-                    <li class="nav-item active" ><a class="nav-link" href="{{ url('admin/dashboard')}}"><i class="feather icon-home"></i><span>Dashboard</span></a>
+                    <li class="nav-item {{activeMenu('dashboard')}}" ><a class="nav-link" href="{{ url('admin/dashboard')}}"><i class="feather icon-home"></i><span>Dashboard</span></a>
                     </li>
-                    <li class="nav-item" ><a class="nav-link" href="{{ url('admin/users')}}"><i class="fa fa-user" aria-hidden="true"></i><span>User</span></a>
+                    <li class="nav-item {{activeMenu('users')}}" ><a class="nav-link" href="{{ url('admin/users')}}"><i class="fa fa-user" aria-hidden="true"></i><span>User</span></a>
                     </li>
-                    <li class="nav-item" ><a class="nav-link" href="{{ url('admin/dms')}}"><i class="fa fa-list" aria-hidden="true"></i><span>DMS</span></a>
+                    <li class="nav-item {{activeMenu('dms')}}" ><a class="nav-link" href="{{ url('admin/dms')}}"><i class="fa fa-list" aria-hidden="true"></i><span>DMS</span></a>
+                      
+                    </li>
+                    <li class="nav-item {{activeMenu('generateurl')}}" ><a class="nav-link" href="{{ url('admin/generateurl')}}"><i class="fa fa-copy" aria-hidden="true"></i><span>Generate URL</span></a>
                       
                     </li>
                     
