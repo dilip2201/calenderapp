@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use DataTables;
 use Validator;
 use App\DMS;
-
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PDF;
 class DMSController extends Controller
 {
     /**
@@ -132,5 +134,54 @@ class DMSController extends Controller
     public function destroy($id)
     {
         //
+    }
+        public function downloadpdf(Request $request)
+    {
+
+        $dmses = DMS::orderby('id', 'desc');
+    
+        
+        $dmses = $dmses->get();
+        
+        if($request->submittype == 'pdf') {
+           $pdf = PDF::loadview('admin.dms.dmspdf',compact('dmses'));
+           return $pdf->download('works.pdf');
+        }else if ($request->submittype == 'excel'){
+
+            $spreadsheet = new Spreadsheet();
+            $sheet = $spreadsheet->getActiveSheet();
+
+            $sheet->setCellValue('A1', 'First Name');
+            $sheet->getColumnDimension('A')->setAutoSize(true);
+
+            $sheet->setCellValue('B1', 'Middle Name');
+            $sheet->getColumnDimension('B')->setAutoSize(true);
+
+            $sheet->setCellValue('C1', 'Last Name');
+            $sheet->getColumnDimension('C')->setAutoSize(true);
+
+   
+
+
+            $sheet->freezePaneByColumnAndRow(1, 2);
+            if (!empty($dmses)) {
+                $i = 2;
+                foreach ($dmses as $user) {
+
+                     $sheet->setCellValue('A' . $i, $user->first_name );
+                    $sheet->setCellValue('B' . $i, $user->middle_name);
+                    $sheet->setCellValue('C' . $i, $user->last_name);
+          
+                    $i++;
+                }
+            }
+
+            $writer = new Xlsx($spreadsheet);
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment; filename="works.xlsx"');
+            $writer->save("php://output");
+
+        }
+    
     }
 }
