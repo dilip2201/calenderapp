@@ -99,6 +99,7 @@ class UserController extends Controller
 
         try {
             $id = decrypt($request->id);
+            
             $holiday = User::find($id);
             if ($holiday) {
                 $holiday->update(['status' => $request->status]);
@@ -197,7 +198,7 @@ class UserController extends Controller
                     $user->image = $fileName;
                 }
                 $user->name = $request->name;
-                $user->lastname = $request->lastname;
+                $user->last_name = $request->lastname;
                 $user->email = $request->email;
                 $user->role = $request->role;
                 if(!empty($request->password)){
