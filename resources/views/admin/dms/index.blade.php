@@ -17,6 +17,8 @@
                 <div class="card-body" style="padding: 10px 15px;">
                     <div class="col-lg-12">
                         <div class="form-group row " style="margin-bottom: 0px;">
+                        <form method="post" style="display: contents;"  action="{{route('admin.dms.downloadpdf')}}">
+                                {{ csrf_field() }}
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label><b>Status: </b>
@@ -40,16 +42,21 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-2" style="padding-left: 0px;">
-                                <button class="btn btn-success btn-sm searchdata"
-                                        style="margin-top: 33px;padding: 6px 16px;">Search <span
-                                        class="spinner"></span>
-                                </button>
-                                <a href="{{ route('admin.users.index') }}" class="btn btn-danger btn-sm"
-                                   style="margin-top: 33px;margin-left: 5px;padding: 6px 16px;cursor: pointer; ">
-                                    <i class="fa fa-refresh" aria-hidden="true"></i> Reset
-                                </a>
+                            <div class="col-md-3" style="padding-left: 0px;">
+                                <button type="button" class="btn btn-success  waves-effect waves-light searchdata"  style="margin-top:18px;"><i class="fa fa-search"></i> Search  <span
+                                        class="spinner"></span></button>
+                                <a href="{{ route('admin.users.index') }}"  class="btn btn-danger waves-effect waves-light" style="margin-top: 18px;"><i class="fa fa-refresh" aria-hidden="true"></i> Reset</a>
                             </div>
+                            <div class="col-md-6" style="padding-left: 0px;margin-top: 20px;margin-left: 10px">
+                                     @if(Auth::user()->role == 'super_admin')
+                                     <button type="submit" name="submittype" class="btn btn-danger btn-sm pdfsubmit" style="padding: 6px 16px;cursor: pointer;background-color: DodgerBlue; border-color: DodgerBlue; " value="pdf" class="btn btn-danger btn-sm"> <i class="fa fa-download" aria-hidden="true"></i> Pdf <span class="spinner"></span>
+                                     </button>
+                                     <button type="submit" name="submittype" class="btn btn-danger btn-sm pdfsubmit" value="excel" style="padding: 6px 16px;cursor: pointer;background-color: DodgerBlue; border-color: DodgerBlue; "  class="btn btn-success btn-sm" ><i class="fa fa-download" aria-hidden="true"></i>  Excel <span
+                                        class="spinner"></span>
+                                      </button>
+                                      @endif
+                            </div>
+                             </form>
                         </div>
                     </div>
                 </div>
