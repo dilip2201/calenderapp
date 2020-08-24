@@ -41,8 +41,8 @@
                                                         <div class="col-12">
                                                             <div class="form-group">
                                                                 <div class="controls">
-                                                                    <label for="account-name">Name<span
-                                                style="color: red;">*</span></label>
+                                                                    <label for="account-name"><b>Name </b><span
+                                                style="color: red;">*</span></b></label>
                                                                     <input type="text" class="form-control" name="name" id="account-name" placeholder="Name"  required="" 
                                                                     value="{{ auth()->user()->name ? auth()->user()->name : '-'  }}" data-validation-required-message="This name field is required">
                                                                 </div>
@@ -51,7 +51,7 @@
                                                         <div class="col-12">
                                                             <div class="form-group">
                                                                 <div class="controls">
-                                                                    <label for="account-e-mail">E-mail<span
+                                                                    <label for="account-e-mail"><b>E-mail </b><span
                                                 style="color: red;">*</span></label>
                                                                     <input type="email" name="email" class="form-control" id="account-e-mail" placeholder="Email" value="{{ auth()->user()->email ? auth()->user()->email : '-'  }}"  required="" data-validation-required-message="This email field is required">
                                                                 </div>
@@ -60,8 +60,8 @@
                                                         
                                                         
                                                         <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
-                                                            <button type="submit" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light">Save
-                                                                changes</button>
+                                                            <button type="submit" class="btn btn-outline-primary waves-effect waves-light">Save changes</button>
+
                                                           
                                                         </div>
                                                     </div>
@@ -101,8 +101,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
-                                                            <button type="submit" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light">Save
-                                                                changes</button>
+                                                            <button type="submit" class="btn btn-outline-primary waves-effect waves-light">Save changes</button>
                                                         </div>
                                                     </div>
                                                 </form>
