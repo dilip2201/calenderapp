@@ -51,7 +51,7 @@ class UserController extends Controller
         return DataTables::of($users)
             ->addColumn('action', function ($q) {
                 $id = encrypt($q->id);
-                $return = '<a title="Edit"  data-id="'.$id.'"   data-toggle="modal" data-target=".add_modal" class="btn btn-info btn-sm openaddmodal" href="javascript:void(0)"><i class="feather icon-edit"></i></a>';
+                $return = '<a title="Edit"  data-id="'.$id.'"   data-toggle="modal" data-target=".add_modal" class="feather icon-edit openaddmodal" href="javascript:void(0)"></a>';
                 /*if($q->role != 'super_admin'){
                  $return .= ' <a class="btn btn-danger btn-sm delete_record" data-id="'.$q->id.'" href="javascript:void(0)"> <i class="fas fa-trash"></i> Delete</a>';
                 }*/
@@ -77,10 +77,16 @@ class UserController extends Controller
             ->addColumn('status', function ($q) {
                 $id = encrypt($q->id);
                 if ($q->status == 'active') {
-                    return ' <a  class="badge badgesize badge-success right changestatus" data-status="inactive" data-id="' . $id . '" href="javascript:void(0)">' . ucwords($q->status) . '</a>';
+                    return '<div class="chip chip-success"><div class="chip-body">
+                                <a class="chip-text changestatus"  data-id="' . $id . '"  data-status="inactive" style="color:white;"  href="javascript:void(0)">' . ucwords($q->status) . '</div>
+                                </div>
+                            </div>';
                 }
                 if ($q->status == 'inactive') {
-                    return '<a class="badge badgesize badge-danger right changestatus"  data-status="active"  data-id="' . $id . '" href="javascript:void(0)">' . ucwords($q->status) . '</a>';
+                    return '<div class="chip chip-danger"><div class="chip-body">
+                                <a class="chip-text changestatus"  data-id="' . $id . '"   data-status="active" style="color:white;"  href="javascript:void(0)">' . ucwords($q->status) . '</div>
+                                </div>
+                            </div>';
                 }
             })
             ->addIndexColumn()
