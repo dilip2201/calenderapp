@@ -29,6 +29,9 @@
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link{
 	background-color: #f4bb05!important;
 }
+table.dataTable th, table.dataTable td {
+border-bottom: 1px solid #b9b9b9!important;
+}
 
 
 

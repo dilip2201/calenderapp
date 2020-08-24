@@ -62,7 +62,7 @@ class UserController extends Controller
             if(file_exists(public_path().'/company/employee/'.$q->image) && !empty($q->image)) :
                 $image = url('public/company/employee/'.$q->image); 
             endif;
-            return '<img class="profile-user-img img-fluid img-circle" src="'.$image.'" style="width:50px; height:50px; border-radius:50%;">';
+            return '<img class="profile-user-img img-fluid img-circle" src="'.$image.'" style="width:50px; height:50px; border-radius:50%;border: 3px solid #adb5bd;">';
             }) 
             
             ->addColumn('name', function ($q) {
@@ -172,7 +172,7 @@ class UserController extends Controller
         $rules = [
             'name' => 'required',
             'lastname' => 'required',
-            'role' => 'required|in:super_admin,user,operator'
+            'role' => 'required|in:super_admin,user,operator',
         ];
         if ($request->hasFile('image')) {
             $rules['image'] = 'mimes:jpeg,jpg,png,gif|required|max:2024';
