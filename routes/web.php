@@ -37,6 +37,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::post('getmodal', ['as' => 'getmodal', 'uses' => 'UserController@getmodal']);
             Route::post('changestatus', ['as' => 'changestatus', 'uses' => 'UserController@changestatus']);
         });
+        /******************** User Dev : Vikas 24-08 ***********************/
+        Route::resource('dms', 'DMSController');
+        Route::group(['prefix' => 'dms', 'as' => 'dms.'], function () {
+            Route::post('getall', ['as' => 'getall', 'uses' => 'DMSController@getall']);
+        });
    // });
         
 	

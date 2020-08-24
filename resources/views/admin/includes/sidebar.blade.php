@@ -15,7 +15,7 @@
                     </li>
                     <li class="nav-item" ><a class="nav-link" href="{{ url('admin/users')}}"><i class="fa fa-user" aria-hidden="true"></i><span>User</span></a>
                     </li>
-                    <li class="nav-item" ><a class="nav-link" href="{{ url('admin/dashboard')}}"><i class="fa fa-list" aria-hidden="true"></i><span>DMS</span></a>
+                    <li class="nav-item" ><a class="nav-link" href="{{ url('admin/dms')}}"><i class="fa fa-list" aria-hidden="true"></i><span>DMS</span></a>
                       
                     </li>
                     
