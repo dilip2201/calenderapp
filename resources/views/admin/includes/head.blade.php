@@ -51,6 +51,9 @@
       height : 24px;
       width : 35px;
     }
+    .error{
+        color: red!important;
+    }
     </style>
 </head>
 <!-- END: Head-->

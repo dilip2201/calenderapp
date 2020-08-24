@@ -38,17 +38,26 @@
                                                 {{ csrf_field() }}
                                                     <div class="row">
                                                       
-                                                        <div class="col-12">
+                                                        <div class="col-6">
                                                             <div class="form-group">
                                                                 <div class="controls">
-                                                                    <label for="account-name"><b>Name </b><span
+                                                                    <label for="account-name"><b> First Name </b><span
                                                 style="color: red;">*</span></b></label>
                                                                     <input type="text" class="form-control" name="name" id="account-name" placeholder="Name"  required="" 
                                                                     value="{{ auth()->user()->name ? auth()->user()->name : '-'  }}" data-validation-required-message="This name field is required">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-12">
+                                                        <div class="col-6">
+                                                            <div class="form-group">
+                                                                <div class="controls">
+                                                                    <label for="account-e-mail"><b>Last Name</b><span
+                                                style="color: red;">*</span></label>
+                                                                    <input type="last_name" name="last_name" class="form-control" id="account-e-mail" placeholder="Email" value="{{ auth()->user()->last_name ? auth()->user()->last_name : '-'  }}"  required="" data-validation-required-message="This email field is required">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
                                                             <div class="form-group">
                                                                 <div class="controls">
                                                                     <label for="account-e-mail"><b>E-mail </b><span
@@ -57,10 +66,33 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+
+                                                         @if(auth()->user()->image)
+                                                            <?php $img = auth()->user()->image; ?>
+                                                            @else
+                                                            <?php $img = 'default.png'; ?>
+                                                            @endif
+                                                <div class="col-6">
+                                                    <div class="media">
+                                                    <a href="javascript: void(0);">
+                                                        <img src="{{ URL::asset('public/company/employee/'.$img) }}" class="rounded mr-75 image_preview logo_image" alt="profile image" height="64" width="64">
+                                                    </a>
+                                                    <div class="media-body mt-75">
+                                                        <div class="col-12 px-0 d-flex flex-sm-row flex-column justify-content-start">
+                                                            <label class="btn btn-sm btn-primary ml-50 mb-50 mb-sm-0 cursor-pointer waves-effect waves-light " for="account-upload">Upload new photo</label>
+                                                            <input type="file" name="image" class="logo_image" id="account-upload" hidden="">
+                                                        </div>
+                                                        <p class="text-muted ml-75 mt-50"><small>Allowed JPG, GIF or PNG. Max
+                                                                size of
+                                                                800kB</small></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                                         
                                                         
                                                         <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
-                                                            <button type="submit" class="btn btn-outline-primary waves-effect waves-light">Save changes</button>
+                                                            <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Save changes <span class="spinner"></span> </button>
 
                                                           
                                                         </div>
@@ -75,7 +107,7 @@
                                                         <div class="col-12">
                                                             <div class="form-group">
                                                                 <div class="controls">
-                                                                    <label for="account-old-password">Current Password<span
+                                                                    <label for="account-old-password"> <b>Current Password </b> <span
                                                 style="color: red;">*</span></label>
                                                                     <input type="password" name="current_password" class="form-control" id="account-old-password" required="" placeholder="Old Password" >
                                                                 </div>
@@ -84,7 +116,7 @@
                                                         <div class="col-12">
                                                             <div class="form-group">
                                                                 <div class="controls">
-                                                                    <label for="account-new-password">New Password<span
+                                                                    <label for="account-new-password"> <b>New Password </b> <span
                                                 style="color: red;">*</span></label>
                                                                     <input type="password"  name="new_password"  id="account-new-password" class="form-control" placeholder="New Password" required="">
                                                                 </div>
@@ -93,15 +125,15 @@
                                                         <div class="col-12">
                                                             <div class="form-group">
                                                                 <div class="controls">
-                                                                    <label for="account-retype-new-password">Confirm
-                                                                        Password<span
+                                                                    <label for="account-retype-new-password"> <b>Confirm
+                                                                        Password </b> <span
                                                 style="color: red;">*</span></label>
                                                                     <input type="password"  name="password_confirmation" class="form-control" required="" id="account-retype-new-password" data-validation-match-match="password" placeholder="New Password">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
-                                                            <button type="submit" class="btn btn-outline-primary waves-effect waves-light">Save changes</button>
+                                                            <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Save changes  <span class="spinner"></span> </button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -126,6 +158,19 @@
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 <script>
+    function readURL(input, classes) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('.' + classes).attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$('body').on('change', '.logo_image', function() {
+    readURL(this, 'image_preview');
+});
 /*Update Profile*/
 $('body').on('submit', '.formsubmit', function(e) {
     e.preventDefault();

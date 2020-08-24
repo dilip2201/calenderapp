@@ -21,10 +21,15 @@
                         </ul>
                        
                     </div>
+                    @if(auth()->user()->image)
+                    <?php $img = auth()->user()->image; ?>
+                    @else
+                    <?php $img = 'default.png'; ?>
+                    @endif
                     <ul class="nav navbar-nav float-right">
                         <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                                 <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">{{ 
-                                    ucfirst(Auth::user()->name)}}</span><span class="user-status">{{ Auth::user()->email}}</span></div><span><img class="round" src="{{ URL::asset('public/app-assets/images/portrait/small/avatar-s-11.jpg') }}" alt="avatar" height="40" width="40"></span>
+                                    ucfirst(Auth::user()->name)}}</span><span class="user-status">{{ Auth::user()->email}}</span></div><span><img class="round" src="{{ URL::asset('public/company/employee/'.$img) }}" alt="avatar" height="40" width="40"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="{{ route('admin.profile')}}"><i class="feather icon-user"></i> Edit Profile</a>
                                 <div class="dropdown-divider"></div><a class="dropdown-item" href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="feather icon-power"></i> Logout</a>
