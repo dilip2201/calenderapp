@@ -14,8 +14,8 @@
                 </div>
 
         <div class="col-12">
-            <div class="card card-info card-outline displaybl">
-                <div class="card-body" style="padding: 10px 15px;">
+          
+                <div class="card-body" style="padding: 10px 15px;margin-bottom: 5px;">
                     <div class="col-lg-12">
                         <div class="form-group row " style="margin-bottom: 0px;">
                             <div class="col-md-3">
@@ -49,12 +49,10 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.card -->
-            </div>
-            <div class="dt-buttons btn-group"><button data-toggle="modal" data-typeid="" data-target=".add_modal" class="btn btn-outline-primary openaddmodal" tabindex="0" aria-controls="DataTables_Table_0"><span><i class="feather icon-plus"></i> Add New</span></button> </div>
-            <div class="card  card-outline">
-               
-                <div class="card-body">
+           
+            <div class="dt-buttons btn-group" style="float: right;"><button data-toggle="modal" data-typeid="" data-target=".add_modal" class="btn btn-primary mb-1 waves-effect waves-light openaddmodal" style="padding: 10px;" tabindex="0" aria-controls="DataTables_Table_0"><span><i class="feather icon-plus"></i> Add New</span></button> </div>
+                          
+                <div class="card-body" style="margin-top: 50px;">
                     <!-- /.card-header -->
                     
                     <div class="table-responsive">
@@ -79,7 +77,7 @@
                     <!-- /.card-body -->
                     <!-- /.card -->
                 </div>
-            </div>
+           
             <!-- /.col -->
         </div>
 
