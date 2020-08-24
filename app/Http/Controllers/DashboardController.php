@@ -73,9 +73,21 @@ class DashboardController extends Controller
 
             try {
 
+
                 $user = User::find(Auth::user()->id);
                 $user->name = $request->name;
+                $user->last_name = $request->last_name;
                 $user->email = $request->email;
+                if ($request->hasFile('image')) {
+                    if(file_exists(public_path('company/employee/'.$user->image)) && $user->image!='') {
+                        unlink(public_path('company/employee/'.$user->image));
+                    }
+                    $destinationPath = public_path().'/company/employee/';
+                    $file = $request->image;
+                    $fileName = time() . '.'.$file->clientExtension();
+                    $file->move($destinationPath, $fileName);
+                    $user->image = $fileName;
+                }
               
                 $user->save();
 

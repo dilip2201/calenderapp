@@ -42,7 +42,8 @@
                                 </div>
                             </div>
                             <div class="col-md-3" style="padding-left: 0px;">
-                                <button type="button" class="btn btn-success  waves-effect waves-light searchdata"  style="margin-top:18px;"><i class="fa fa-search"></i> Search</button>
+                                <button type="button" class="btn btn-success  waves-effect waves-light searchdata"  style="margin-top:18px;"><i class="fa fa-search"></i> Search  <span
+                                        class="spinner"></span></button>
                                 <a href="{{ route('admin.users.index') }}"  class="btn btn-danger waves-effect waves-light" style="margin-top: 18px;"><i class="fa fa-refresh" aria-hidden="true"></i> Reset</a>
                             </div>
                         </div>
@@ -143,7 +144,15 @@
                         d.status = $("#status").val();
                         d.role = $("#role").val();
 
-                    }
+                    },
+                    beforeSend: function () {
+                        $('.spinner').html('<i class="fa fa-spinner fa-spin"></i>');
+                    },
+                    complete: function () {
+                        $('.spinner').html('');
+                        $('[data-toggle="tooltip"]').tooltip();
+                    },
+
                 },
                 columns: [
                     {data: 'DT_RowIndex', "orderable": false},
@@ -158,6 +167,7 @@
             /*filter*/
             $('.searchdata').click(function () {
                 event.preventDefault();
+
                 $("#employee").DataTable().ajax.reload()
             })
                     /********* add new employee ********/
