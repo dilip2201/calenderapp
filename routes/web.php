@@ -39,6 +39,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         });
         /******************** User Dev : Vikas 24-08 ***********************/
         Route::resource('dms', 'DMSController');
+        Route::get('generateurl', 'GenerateurlController@index');
+
         Route::group(['prefix' => 'dms', 'as' => 'dms.'], function () {
             Route::post('getall', ['as' => 'getall', 'uses' => 'DMSController@getall']);
         });
