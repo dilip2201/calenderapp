@@ -45,6 +45,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::group(['prefix' => 'dms', 'as' => 'dms.'], function () {
             Route::post('getall', ['as' => 'getall', 'uses' => 'DMSController@getall']);
             Route::post('downloadpdf', ['as' => 'downloadpdf', 'uses' => 'DMSController@downloadpdf']);
+            Route::post('importexcel', ['as' => 'importexcel', 'uses' => 'DMSController@importexcel']);
         });
    // });
         
