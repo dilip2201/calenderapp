@@ -13,8 +13,8 @@
                 </div>
 
         <div class="col-12">
-            <div class="card card-info card-outline displaybl">
-                <div class="card-body" style="padding: 10px 15px;">
+           
+                 <div class="card-body" style="padding: 10px 15px;margin-bottom: 5px;">
                     <div class="col-lg-12">
                         <div class="form-group row " style="margin-bottom: 0px;">
                         <form method="post" style="display: contents;"  action="{{route('admin.dms.downloadpdf')}}">
@@ -53,7 +53,11 @@
                                      </button>
                                      <button type="submit" name="submittype" class="btn btn-danger btn-sm pdfsubmit" value="excel" style="padding: 6px 16px;cursor: pointer;background-color: DodgerBlue; border-color: DodgerBlue; "  class="btn btn-success btn-sm" ><i class="fa fa-download" aria-hidden="true"></i>  Excel <span
                                         class="spinner"></span>
-                                      </button>
+                                    </button>
+                                    <a href="#" data-toggle="modal" data-typeid="" data-target=".import_excel"
+                                         class="btn btn-info btn-sm openimportmodal" data-id="" style="margin-left: 5px;">
+                                        <i class="fa fa-upload" aria-hidden="true"></i> Import
+                                    </a>
                                       @endif
                             </div>
                              </form>
@@ -61,11 +65,10 @@
                     </div>
                 </div>
                 <!-- /.card -->
-            </div>
-            <div class="dt-buttons btn-group"><button data-toggle="modal" data-typeid="" data-target=".add_modal" class="btn btn-outline-primary openaddmodal" tabindex="0" aria-controls="DataTables_Table_0"><span><i class="feather icon-plus"></i> Add New</span></button> </div>
-            <div class="card  card-outline">
+          
+               <div class="dt-buttons btn-group" style="float: right;"><button data-toggle="modal" data-typeid="" data-target=".add_modal" class="btn btn-primary mb-1 waves-effect waves-light openaddmodal" style="padding: 10px;" tabindex="0" aria-controls="DataTables_Table_0"><span><i class="feather icon-plus"></i> Add New</span></button> </div>
                
-                <div class="card-body">
+                <div class="card-body" style="margin-top: 50px;">
                     <!-- /.card-header -->
                     
                     <div class="table-responsive">
@@ -113,7 +116,48 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
+<div class="modal fade import_excel" >
+   <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+         <div class="modal-header" style="padding: 5px 15px;">
+            <h5 class="modal-title">{{ __('message.Import Excel') }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form  autocorrect="off" action="{{ route('admin.dms.importexcel') }}" autocomplete="off" method="post" class="form-horizontal form-bordered importexcel">
+               {{ csrf_field() }}
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="form-group">
+                        <label></label>
+                        <a class="link-unstyled" download="" href="{{ URL::asset('public/company/employee/sample.xlsx') }}" title="">
+                        <i class="fa fa-cloud-download pr10"></i> {{ __('message.Sample Sheet') }}</a>
+                     </div>
+                     <div class="form-group">
+                        <label for="customFile"> {{ __('message.Select File') }} <span class="text-danger">*</span></label> 
+                        <div class="custom-file">
+                           <input type="file" class="custom-file-input" name="file" required="" id="customFile">
+                           <label class="custom-file-label" for="customFile">
+                           {{ __('message.Import Excel File') }}
+                           </label>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-12">
+                     <div class="form-group">
+                        <button type="submit" class="btn btn-primary  submitbutton pull-right"> {{ __('message.Submit') }} <span class="spinner"></span></button>
+                     </div>
+                  </div>
+               </div>
+            </form>
+         </div>
+      </div>
+      <!-- /.modal-content -->
+   </div>
+   <!-- /.modal-dialog -->
+</div>
 
 
 <script src="https://jqueryvalidation.org/files/lib/jquery.js"></script>
@@ -152,6 +196,33 @@
                 $("#employee").DataTable().ajax.reload()
             })
         });
+           $('body').on('submit', '.importexcel', function (e) {
+      e.preventDefault();
+      $.ajax({
+          url: $(this).attr('action'),
+          data: new FormData(this),
+          type: 'POST',
+          contentType: false,
+          cache: false,
+          processData: false,
+          beforeSend: function () {
+              $('.spinner').html('<i class="fa fa-spinner fa-spin"></i>')
+          },
+          success: function (data) {
+             
+              if (data.status == 400) {
+                  $('.spinner').html('');
+                  toastr.error(data.msg)
+              }
+              if (data.status == 200) {
+                  $('.spinner').html('');
+                  $('.import_excel').modal('hide');
+                  $('#employee').DataTable().ajax.reload();
+                  toastr.success(data.msg)
+              }
+          },
+      });
+   });
 
     </script>
 

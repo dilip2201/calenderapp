@@ -184,4 +184,169 @@ class DMSController extends Controller
         }
     
     }
+
+
+    public function importexcel(Request $request)
+    {
+
+
+        
+        $extension = '';
+        if(!empty($request->file)){
+            $extension = $request->file->getClientOriginalExtension();
+        }
+
+        $validator = Validator::make(
+          [
+              'file'      => $request->file,
+              'extension' => $extension,
+          ],
+          [
+              'file'          => 'required',
+              'extension'      => 'required|in:doc,csv,xlsx,xls,docx,ppt,odt,ods,odp',
+          ]
+        );
+        if ($validator->fails()) {
+            $arr = array("status" => 400, "msg" => $validator->errors()->first(), "result" => array());
+        } else {
+           
+            try {
+                  
+                if($extension == 'xlsx') {
+                    $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+                } else {
+                    $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+                }
+                // file path
+                $spreadsheet = $reader->load($_FILES['file']['tmp_name']);
+                $allDataInSheet = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+            
+                // array Count
+                $arrayCount = count($allDataInSheet);
+                $flag = 0;
+                // $createArray = array('name', 'middle_name','lastname', 'email','phone','cityid','address','postal_code','birthdate','gender','age','account_no','date_of_joining','designation','emergency_number','employment_status','pan_number','father_name','permanent_address','formalities','offer_acceptance','probation_period','date_of_confirmation','department','salary','salarytype','bank_name','ifsc_code','pf_account_number','un_number','pf_status','date_of_resignation','notice_period','last_working_day','full_final','employeeUserId','employeeId','employeeNumber','employeeName','employeeContact','contactId','title','attention','web','phone2','phone3','fax','addressLine2','addressLine3');
+
+                $createArray = array('first_name','last_name','middle_name','email','mobile_no');
+                
+                $makeArray = array('first_name' => 'first_name',
+                    'last_name'=>'last_name' ,
+                    'middle_name' => 'middle_name', 
+                    'email' => 'email', 
+                    'mobile_no' => 'mobile_no', 
+                );
+               
+                $SheetDataKey = array();
+                $phone_numbers = array();
+                foreach ($allDataInSheet as $row_index=>$dataInSheet) {
+                    foreach ($dataInSheet as $key => $value) {
+                        if (in_array(trim($value), $createArray)) {
+                            $value = preg_replace('/\s+/', '', $value);
+                            $SheetDataKey[trim($value)] = $key;
+                        } 
+
+                    }
+                   // dd($row_index);
+                    if($row_index > 1){
+                         $col_headers = array_keys($dataInSheet);
+                    array_push($phone_numbers,$dataInSheet[$col_headers[6]]);
+                    }
+                   
+                        //dd($col_headers[2]);
+                }
+                
+                //dd($makeArray);
+                $dataDiff = array_diff_key($makeArray, $SheetDataKey);
+
+                
+
+                if (empty($dataDiff)) {
+                    $flag = 1;
+                }
+                // match excel sheet column
+                if ($flag == 1) {
+                    for ($i = 2; $i <= $arrayCount; $i++) {
+                        
+                        $first_name = $SheetDataKey['first_name'];
+                        $last_name = $SheetDataKey['last_name'];
+                        $middle_name = $SheetDataKey['middle_name'];
+                        $email = $SheetDataKey['email'];                       
+                        $mobile_no = $SheetDataKey['mobile_no'];                       
+                       // $cityid = $SheetDataKey['cityid']; 
+                       //$image = $SheetDataKey['image'];                      
+
+                        $first_name = $allDataInSheet[$i][$SheetDataKey['first_name']];
+                        $last_name = $allDataInSheet[$i][$SheetDataKey['last_name']];
+                        $middle_name = $allDataInSheet[$i][$SheetDataKey['middle_name']];
+                        $email = $allDataInSheet[$i][$SheetDataKey['email']];
+                        $mobile_no = $allDataInSheet[$i][$SheetDataKey['mobile_no']];
+
+                    
+                     
+                        $validator = Validator::make($allDataInSheet[$i], $this->rules(), $this->validationMessages());
+                        if ($validator->fails()) {
+                            $arr = array("status" => 400, "msg" => $validator->errors()->first(), "result" => array());
+                             return \Response::json($arr);  
+                        }
+                      
+
+                        $user = new DMS;
+                      
+                        $user->first_name = $first_name;
+                        $user->last_name = $last_name;
+                        $user->middle_name = $middle_name;
+                        $user->email = $email;
+                        $user->mobile_no = $mobile_no;                        
+                        $user->save();
+                        
+                       
+                        $arr = array("status" => 200, "msg" => "Successfully imported", "result" => array());
+                                   
+
+                       // dd(DB::getQueryLog());
+                    }   
+                  //  $arr = array("status" => 200, "msg" => "Successfully imported", "result" => array());
+                } else {
+                   
+                    $arr = array("status" => 400, "msg" => "Please import correct file, did not match excel sheet column", "result" => array());
+                }
+                
+                
+            } catch (\Illuminate\Database\QueryException $ex) {
+                $msg = $ex->getMessage();
+                if (isset($ex->errorInfo[2])) :
+                    $msg = $ex->errorInfo[2];
+                endif;
+               
+                $arr = array("status" => 400, "msg" => $msg, "result" => array());
+            } catch (Exception $ex) {
+                $msg = $ex->getMessage();
+                if (isset($ex->errorInfo[2])) :
+                    $msg = $ex->errorInfo[2];
+                endif;
+              
+                $arr = array("status" => 400, "msg" => $msg, "result" => array());
+            }
+           
+        }
+        return \Response::json($arr);
+        
+    }
+        public function getErrors()
+    {
+        return $this->errors;
+    }
+
+    public function rules(): array
+    {
+        return [
+           
+        ];
+    }
+
+    public function validationMessages()
+    {
+        return [
+               
+        ];
+    }
 }
