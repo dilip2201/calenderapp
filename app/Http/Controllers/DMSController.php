@@ -40,13 +40,20 @@ class DMSController extends Controller
     {
 
         $dms = DMS::orderby('id', 'desc');
-
-        
+        if (isset($request->fssai) && !empty($request->fssai)) {
+            $dms = $dms->where('fssai',$request->fssai);
+        }
+        if (isset($request->veg_non_veg) && !empty($request->veg_non_veg)) {
+            $dms = $dms->where('veg_non_veg',$request->veg_non_veg);
+        }
+        if (isset($request->gst_no) && !empty($request->gst_no)) {
+            $dms = $dms->where('gst_no',$request->gst_no);
+        } 
         $dms = $dms->get();
         return DataTables::of($dms)
             ->addColumn('action', function ($q) {
                 $id = encrypt($q->id);
-                $return = '<a title="Edit"  data-id="'.$id.'"   data-toggle="modal" data-target=".add_modal" class="btn btn-info btn-sm" href="javascript:void(0)"><i class="feather icon-edit"></i></a>';
+                $return = '<a title="Edit"  data-id="'.$id.'"   data-toggle="modal" data-target=".add_modal" class="openaddmodal" href="javascript:void(0)"><i class="fa fa-eye" aria-hidden="true"></i></a>';
                 /*if($q->role != 'super_admin'){
                  $return .= ' <a class="btn btn-danger btn-sm delete_record" data-id="'.$q->id.'" href="javascript:void(0)"> <i class="fas fa-trash"></i> Delete</a>';
                 }*/
@@ -55,19 +62,79 @@ class DMSController extends Controller
 
             
             ->addColumn('name', function ($q) {
-                return ucfirst($q->first_name).' '.ucfirst($q->last_name);
+                  $name = '';
+                  if(!empty($q->first_name)){
+                     $name.= " ".$q->first_name.',';
+                  }
+                  if(!empty($q->middle_name)){
+                     $name.= " ".$q->middle_name.',';
+                  }
+                  if(!empty($q->last_name)){
+                     $name.= " ".$q->last_name.',';
+                  }
+                return $name;
             })
-            ->addColumn('role', function ($q) {
-                return ucwords(str_replace('_', ' ', $q->role));
+            ->addColumn('mobile_no', function ($q) {
+                  $c_code = '';
+                  if(!empty($q->country_code)){
+                     $c_code.= " ".$q->country_code.',';
+                  }
+                  if(!empty($q->mobile_no)){
+                     $c_code.= " ".$q->mobile_no.',';
+                  }
+                return $c_code;
             })
             ->addColumn('email', function ($q) {
                 return $q->email;
             })
-            ->addColumn('mobile_no', function ($q) {
-                return $q->mobile_no;
+            ->addColumn('address', function ($q) {
+                  $address = '';
+                  if(!empty($q->address_1)){
+                     $address.= " ".$q->address_1.',';
+                  }
+                  if(!empty($q->address_2)){
+                     $address.= " ".$q->address_1.',';
+                  }
+                  if(!empty($q->address_2)){
+                     $address.= " ".$q->address_3.',';
+                  }
+                  if(!empty($q->area)){
+                     $address.= " ".$q->area.',';
+                  }
+                  if(!empty($q->city)){
+                     $address.= " ".$q->city.',';
+                  }
+                  if(!empty($q->state)){
+                     $address.= " ".$q->state.',';
+                  }
+                  if(!empty($q->country)){
+                     $address.= " ".$q->country.',';
+                  }
+                  if(!empty($q->area)){
+                     $address.= " ".$q->area.',';
+                  }
+                  if(!empty($q->pincode)){
+                     $address.= " ".$q->pincode.',';
+                  }
+                return $address;
+            })
+            ->addColumn('description', function ($q) {
+                return $q->description;
+            })
+            ->addColumn('veg_non_veg', function ($q) {
+                return $q->veg_non_veg;
             })
             ->addIndexColumn()
             ->rawColumns(['action'])->make(true);
+    }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function viewdetail(Request $request){
+       
+        return view('admin.dms.show');
     }
 
     /**
@@ -139,7 +206,15 @@ class DMSController extends Controller
     {
 
         $dmses = DMS::orderby('id', 'desc');
-    
+        if (isset($request->fssai) && !empty($request->fssai)) {
+            $dmses = $dmses->where('fssai',$request->fssai);
+        }
+        if (isset($request->veg_non_veg) && !empty($request->veg_non_veg)) {
+            $dmses = $dmses->where('veg_non_veg',$request->veg_non_veg);
+        }
+        if (isset($request->gst_no) && !empty($request->gst_no)) {
+            $dmses = $dmses->where('gst_no',$request->gst_no);
+        } 
         
         $dmses = $dmses->get();
         
@@ -151,13 +226,22 @@ class DMSController extends Controller
             $spreadsheet = new Spreadsheet();
             $sheet = $spreadsheet->getActiveSheet();
 
-            $sheet->setCellValue('A1', 'First Name');
+            $sheet->setCellValue('A1', 'Name');
             $sheet->getColumnDimension('A')->setAutoSize(true);
 
-            $sheet->setCellValue('B1', 'Middle Name');
+            $sheet->setCellValue('B1', 'Mobile No.');
             $sheet->getColumnDimension('B')->setAutoSize(true);
 
-            $sheet->setCellValue('C1', 'Last Name');
+            $sheet->setCellValue('C1', 'Email');
+            $sheet->getColumnDimension('C')->setAutoSize(true);
+
+            $sheet->setCellValue('D1', 'Address');
+            $sheet->getColumnDimension('C')->setAutoSize(true);
+
+            $sheet->setCellValue('E1', 'Description');
+            $sheet->getColumnDimension('C')->setAutoSize(true);
+
+            $sheet->setCellValue('F1', 'Veg Non_Veg');
             $sheet->getColumnDimension('C')->setAutoSize(true);
 
    
@@ -168,9 +252,60 @@ class DMSController extends Controller
                 $i = 2;
                 foreach ($dmses as $user) {
 
-                     $sheet->setCellValue('A' . $i, $user->first_name );
-                    $sheet->setCellValue('B' . $i, $user->middle_name);
-                    $sheet->setCellValue('C' . $i, $user->last_name);
+                  $address = '';
+                  if(!empty($user->address_1)){
+                     $address.= " ".$user->address_1.',';
+                  }
+                  if(!empty($user->address_2)){
+                     $address.= " ".$user->address_1.',';
+                  }
+                  if(!empty($user->address_2)){
+                     $address.= " ".$user->address_3.',';
+                  }
+                  if(!empty($user->area)){
+                     $address.= " ".$user->area.',';
+                  }
+                  if(!empty($user->city)){
+                     $address.= " ".$user->city.',';
+                  }
+                  if(!empty($user->state)){
+                     $address.= " ".$user->state.',';
+                  }
+                  if(!empty($user->country)){
+                     $address.= " ".$user->country.',';
+                  }
+                  if(!empty($user->area)){
+                     $address.= " ".$user->area.',';
+                  }
+                  if(!empty($user->pincode)){
+                     $address.= " ".$user->pincode.',';
+                  }
+
+                  $name = '';
+                  if(!empty($user->first_name)){
+                     $name.= " ".$user->first_name.',';
+                  }
+                  if(!empty($user->middle_name)){
+                     $name.= " ".$user->middle_name.',';
+                  }
+                  if(!empty($user->last_name)){
+                     $name.= " ".$user->last_name.',';
+                  }
+
+                  $c_code = '';
+                  if(!empty($user->country_code)){
+                     $c_code.= " ".$user->country_code.',';
+                  }
+                  if(!empty($user->mobile_no)){
+                     $c_code.= " ".$user->mobile_no.',';
+                  }
+
+                    $sheet->setCellValue('A' . $i, $name);
+                    $sheet->setCellValue('B' . $i, $c_code);
+                    $sheet->setCellValue('C' . $i,$user->email ?? '');
+                    $sheet->setCellValue('D' . $i, $address);
+                    $sheet->setCellValue('E' . $i, $user->description ?? '');
+                    $sheet->setCellValue('F' . $i, $user->veg_non_veg ?? '');
           
                     $i++;
                 }

@@ -23,22 +23,32 @@
                                 <div class="form-group">
                                     <label><b>Status: </b>
                                     </label>
-                                    <select class="form-control status" id="status" name="status">
-                                        <option value="">Select Status</option>
-                                        <option value="active">Active</option>
-                                        <option value="inactive">Inactive</option>
+                                    <select class="form-control fssai" id="fssai" name="fssai">
+                                        <option value="">Select FSSAI</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label><b>Role: </b>
+                                    <label><b>Veg Non-Veg: </b>
                                     </label>
-                                    <select class="form-control role" id="role" name="role">
-                                        <option value="">Select Role</option>
-                                        <option value="super_admin">Super Admin</option>
-                                        <option value="user">User</option>
-                                        <option value="operator">Operator</option>
+                                    <select class="form-control veg_non_veg" id="veg_non_veg" name="veg_non_veg">
+                                        <option value="">Select Type</option>
+                                        <option value="veg">Veg</option>
+                                        <option value="non_veg">Non Veg</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label><b>GST: </b>
+                                    </label>
+                                    <select class="form-control gst_no" id="gst_no" name="gst_no">
+                                        <option value="">Select Type</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
                                     </select>
                                 </div>
                             </div>
@@ -76,9 +86,11 @@
                         <tr>
                             <th>#</th>
                             <th>Name</th>
-                            <th>Role</th>
-                            <th>Email</th>
                             <th>Mobile No.</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Description</th>
+                            <th>Veg Non-Veg</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -97,10 +109,10 @@
     </div>
 <!--/. container-fluid -->
 <div class="modal fade add_modal" >
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header" style="padding: 5px 15px;">
-                <h5 class="modal-title">Large Modal</h5>
+                <h5 class="modal-title">DMS Information</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -177,14 +189,19 @@
                     'type': 'POST',
                     'data': function (d) {
                         d._token = "{{ csrf_token() }}";
+                        d.fssai = $("#fssai").val();
+                        d.gst_no = $("#gst_no").val();
+                        d.veg_non_veg = $("#veg_non_veg").val();
                     }
                 },
                 columns: [
                     {data: 'DT_RowIndex', "orderable": false},
                     {data: 'name'},
-                    {data: 'role'},
-                    {data: 'email'},
                     {data: 'mobile_no'},
+                    {data: 'email'},
+                    {data: 'address'},
+                    {data: 'description'},
+                    {data: 'veg_non_veg'},
                     {data: 'action', orderable: false},
                 ]
             });
@@ -194,33 +211,54 @@
                 $("#employee").DataTable().ajax.reload()
             })
         });
-           $('body').on('submit', '.importexcel', function (e) {
-      e.preventDefault();
-      $.ajax({
-          url: $(this).attr('action'),
-          data: new FormData(this),
-          type: 'POST',
-          contentType: false,
-          cache: false,
-          processData: false,
-          beforeSend: function () {
-              $('.spinner').html('<i class="fa fa-spinner fa-spin"></i>')
-          },
-          success: function (data) {
-             
-              if (data.status == 400) {
-                  $('.spinner').html('');
-                  toastr.error(data.msg)
-              }
-              if (data.status == 200) {
-                  $('.spinner').html('');
-                  $('.import_excel').modal('hide');
-                  $('#employee').DataTable().ajax.reload();
-                  toastr.success(data.msg)
-              }
-          },
-      });
-   });
+        $('body').on('submit', '.importexcel', function (e) {
+          e.preventDefault();
+          $.ajax({
+              url: $(this).attr('action'),
+              data: new FormData(this),
+              type: 'POST',
+              contentType: false,
+              cache: false,
+              processData: false,
+              beforeSend: function () {
+                  $('.spinner').html('<i class="fa fa-spinner fa-spin"></i>')
+              },
+              success: function (data) {
+                 
+                  if (data.status == 400) {
+                      $('.spinner').html('');
+                      toastr.error(data.msg)
+                  }
+                  if (data.status == 200) {
+                      $('.spinner').html('');
+                      $('.import_excel').modal('hide');
+                      $('#employee').DataTable().ajax.reload();
+                      toastr.success(data.msg)
+                  }
+              },
+          });
+        });
+
+        $('body').on('click','.openaddmodal',function(){
+            var client_id = $(this).data('client_id');
+            $.ajax({
+                url: '{{ route("admin.dms.viewdetail") }}',
+                type: 'POST',
+                data:{client_id:client_id},
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                success: function (data) {
+                    
+                   $('.addholidaybody').html(data);
+                },
+                error: function () {
+                    toastr.error('Something went wrong!', 'Oh No!');
+
+                }
+            });
+
+        });
 
     </script>
 
