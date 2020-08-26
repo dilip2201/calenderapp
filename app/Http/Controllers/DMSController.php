@@ -186,7 +186,7 @@ class DMSController extends Controller
     }
 
 
-    public function importexcel(Request $request)
+    public function importexcelold(Request $request)
     {
 
 
@@ -331,7 +331,138 @@ class DMSController extends Controller
         return \Response::json($arr);
         
     }
-        public function getErrors()
+
+    public function importexcel(Request $request)
+    {      
+        $extension = '';
+        if(!empty($request->file)){
+            $extension = $request->file->getClientOriginalExtension();
+        }
+
+        $validator = Validator::make(
+          [
+              'file'      => $request->file,
+              'extension' => $extension,
+          ],
+          [
+              'file'          => 'required',
+              'extension'      => 'required|in:doc,csv,xlsx,xls,docx,ppt,odt,ods,odp',
+          ]
+        );
+        if ($validator->fails()) {
+            $arr = array("status" => 400, "msg" => $validator->errors()->first(), "result" => array());
+        } else {
+           
+            try {
+                  
+                if($extension == 'xlsx') {
+                    $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+                } else {
+                    $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+                }
+                // file path
+                $spreadsheet = $reader->load($_FILES['file']['tmp_name']);
+                $allDataInSheet = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+                
+                // array Count
+                $arrayCount = count($allDataInSheet);
+                
+                for ($i = 1; $i <= $arrayCount; $i ++) {
+                  if($i > 1){
+                    
+                    
+                      $first_name =  $allDataInSheet[$i]['A'];
+                      $middle_name =  $allDataInSheet[$i]['B'];
+                      $last_name =  $allDataInSheet[$i]['C'];
+                      $country_code =  $allDataInSheet[$i]['D'];
+                      $mobile_no =  $allDataInSheet[$i]['E'];
+                      $std_code =  $allDataInSheet[$i]['F'];
+                      $landline_no =  $allDataInSheet[$i]['G'];
+                      $email =  $allDataInSheet[$i]['H'];
+                      $whatsapp_number =  $allDataInSheet[$i]['I'];
+                      $fb_link =  $allDataInSheet[$i]['J'];
+                      $insta_link =  $allDataInSheet[$i]['K'];
+                      $youtube_link =  $allDataInSheet[$i]['L'];
+                      $twitter_link =  $allDataInSheet[$i]['M'];
+                      $address_1 =  $allDataInSheet[$i]['N'];
+                      $address_2 =  $allDataInSheet[$i]['O'];
+                      $address_3 =  $allDataInSheet[$i]['P'];
+                      $pincode =  $allDataInSheet[$i]['Q'];
+                      $area =  $allDataInSheet[$i]['R'];
+                      $city =  $allDataInSheet[$i]['S'];
+                      $state =  $allDataInSheet[$i]['T'];
+                      $country =  $allDataInSheet[$i]['U'];
+                      $category_1 =  $allDataInSheet[$i]['V'];
+                      $category_2 =  $allDataInSheet[$i]['W'];
+                      $description =  $allDataInSheet[$i]['X'];
+                      $words_describe =  $allDataInSheet[$i]['Y'];
+                      $product_best_at =  $allDataInSheet[$i]['Z'];
+                      $veg_non_veg =  $allDataInSheet[$i]['AA'];
+                      $fssai =  $allDataInSheet[$i]['AB'];
+                      $gst_no =  $allDataInSheet[$i]['AC'];
+                      
+
+                      $user = new DMS;
+                      $user->first_name = $first_name;
+                      $user->middle_name = $middle_name;
+                      $user->last_name = $last_name;
+                      $user->country_code = $country_code;
+                      $user->mobile_no = $mobile_no;
+                      $user->std_code = $std_code;
+                      $user->landline_no = $landline_no;
+                      $user->email = $email;
+                      $user->whatsapp_number = $whatsapp_number;
+                      $user->fb_link = $fb_link;
+                      $user->insta_link = $insta_link;
+                      $user->youtube_link = $youtube_link;  
+                      $user->twitter_link = $twitter_link;  
+                      $user->address_1 = $address_1;
+                      $user->address_2 = $address_2;
+                      $user->address_3 = $address_3;
+                      $user->pincode = $pincode;
+                      $user->area = $area;
+                      $user->city = $city;
+                      $user->state = $state;
+                      $user->country = $country;
+                      $user->category_1 = $category_1;
+                      $user->category_2 = $category_2;
+                      $user->description = $description;
+                      $user->words_describe = $words_describe;
+                      $user->product_best_at = $product_best_at;
+                      $user->veg_non_veg = $veg_non_veg;
+                      $user->fssai = $fssai;
+                      $user->gst_no = $gst_no;
+                      $user->save();
+
+                    
+                    
+                  }
+                  
+
+                }
+                $msg = "Data inserted Successfully.";
+                $arr = array("status" => 200, "msg" => $msg, "result" => array());
+            } catch (\Illuminate\Database\QueryException $ex) {
+                $msg = $ex->getMessage();
+                if (isset($ex->errorInfo[2])) :
+                    $msg = $ex->errorInfo[2];
+                endif;
+               
+                $arr = array("status" => 400, "msg" => $msg, "result" => array());
+            } catch (Exception $ex) {
+                $msg = $ex->getMessage();
+                if (isset($ex->errorInfo[2])) :
+                    $msg = $ex->errorInfo[2];
+                endif;
+              
+                $arr = array("status" => 400, "msg" => $msg, "result" => array());
+            }
+           
+        }
+        return \Response::json($arr);
+        
+    }
+    public function getErrors()
     {
         return $this->errors;
     }

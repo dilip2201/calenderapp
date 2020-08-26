@@ -12,7 +12,7 @@
       <link href="https://uploads-ssl.webflow.com/img/webclip.png" rel="apple-touch-icon"/>
    </head>
    <body>
-      <div class="section">
+      <div class="section" style="background-size: contain; background-image: url('{{ url("public/app-assets/images/pages/vuexy-login-bg.png") }}') " >
          <div class="div-block">
             <div class="w-layout-grid grid">
                <div id="w-node-d54fb76ef8b2-d9830c5d" class="div-block-4"><img src="https://uploads-ssl.webflow.com/5f3daf7623551fcc27830c5c/5f3e5492e155f1f4b992ef8a_foodism-new-logo.png" height="" alt="" class="image"/></div>
@@ -25,7 +25,7 @@
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                      </select>
-                     <div class="div-next first-div"><a href="second-screen.html" class="submit-button w-button">Next step!</a></div>
+                     <div class="div-next first-div" ><a href="#" class="submit-button w-button" style="color: #000!important;">Next step!</a></div>
                   </form>
                   <div class="w-form-done">
                      <div>Thank you! Your submission has been received!</div>
