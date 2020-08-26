@@ -247,11 +247,11 @@
         });
 
         $('body').on('click','.openaddmodal',function(){
-            var client_id = $(this).data('client_id');
+            var id = $(this).data('id');
             $.ajax({
                 url: '{{ route("admin.dms.viewdetail") }}',
                 type: 'POST',
-                data:{client_id:client_id},
+                data:{id:id},
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },

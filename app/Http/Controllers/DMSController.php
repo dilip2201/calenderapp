@@ -133,8 +133,9 @@ class DMSController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function viewdetail(Request $request){
-       
-        return view('admin.dms.show');
+        $id = decrypt($request->id);
+        $dms = DMS::where('id',$id)->first();
+        return view('admin.dms.show',compact('dms'));
     }
 
     /**

@@ -50,56 +50,116 @@
                                     <div class="card-body">
                                         <div class="tab-content">
                                             <div role="tabpanel" class="tab-pane active" id="account-vertical-general" aria-labelledby="account-pill-general" aria-expanded="true">
-                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; First Name :  </strong>Test &nbsp;&nbsp;&nbsp;  
+                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; First Name :  </strong> {{ $dms->first_name ?? '-' }} &nbsp;&nbsp;&nbsp;  
 									          <br>
 									          <hr>
-									          <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Middle Name :  </strong>Test &nbsp;&nbsp;&nbsp; 
+									          <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Middle Name :  </strong>{{ $dms->middle_name ?? '-' }} &nbsp;&nbsp;&nbsp; 
 									          <br>
 									          <hr>
-									          <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Last Name :  </strong>Test &nbsp;&nbsp;&nbsp; 
+									          <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Last Name :  </strong>{{ $dms->last_name ?? '-' }} &nbsp;&nbsp;&nbsp; 
 									          <br>
 									          <hr>
 
                                            
                                             </div>
                                             <div class="tab-pane fade" id="account-vertical-password" role="tabpanel" aria-labelledby="account-pill-password" aria-expanded="false">
-                                               <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Email ID :  </strong>Test &nbsp;&nbsp;&nbsp;  
+                                               <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Email ID :  </strong>{{ $dms->email ?? '-' }} &nbsp;&nbsp;&nbsp;  
 									          <br>
 									          <hr>
-									          <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Mobile Number :  </strong>Test &nbsp;&nbsp;&nbsp; 
+                                              @php
+                                                  $c_code = '';
+                                                  if(!empty($q->country_code)){
+                                                     $c_code.= " ".$q->country_code.' ';
+                                                  }
+                                                  if(!empty($q->mobile_no)){
+                                                     $c_code.= " ".$q->mobile_no;
+                                                  }
+                                              @endphp
+									          <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Mobile Number :  </strong>{{ $c_code ?? '-' }} &nbsp;&nbsp;&nbsp; 
 									          <br>
 									          <hr>
-									          <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Std No. :  </strong>Test &nbsp;&nbsp;&nbsp; 
+                                              @php
+                                                  $s_code = '';
+                                                  if(!empty($q->country_code)){
+                                                     $c_code.= " ".$q->country_code.' ';
+                                                  }
+                                                  if(!empty($q->std_code)){
+                                                     $c_code.= " ".$q->std_code;
+                                                  }
+                                              @endphp
+									          <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Std No. :  </strong>{{ $s_code }} &nbsp;&nbsp;&nbsp; 
 									          <br>
 									          <hr>
-									           <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Landline Number :  </strong>Test &nbsp;&nbsp;&nbsp; 
+									           <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Landline Number :  </strong>{{ $dms->landline_no ?? '-' }} &nbsp;&nbsp;&nbsp; 
 									          <br>
 									          <hr>
-									           <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; WhatsApp-number :  </strong>Test &nbsp;&nbsp;&nbsp; 
+									           <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; WhatsApp-number :  </strong>{{ $dms->whatsapp_number ?? '-' }} &nbsp;&nbsp;&nbsp; 
 									          <br>
 									          <hr>
                                             </div>
-                                            <div class="tab-pane fade active show" id="account-vertical-info" role="tabpanel" aria-labelledby="account-pill-info" aria-expanded="false">
-                                                 <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; First Name :  </strong>Test &nbsp;&nbsp;&nbsp;  
+                                            <div class="tab-pane fade show" id="account-vertical-info" role="tabpanel" aria-labelledby="account-pill-info" aria-expanded="false">
+                                                 <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Facebook Link :  </strong>{{ $dms->fb_link ?? '-' }} &nbsp;&nbsp;&nbsp;  
 									          <br>
 									          <hr>
-									          <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Middle Name :  </strong>Test &nbsp;&nbsp;&nbsp; 
+									          <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Instagram Link :  </strong>{{ $dms->insta_link ?? '-' }} &nbsp;&nbsp;&nbsp; 
 									          <br>
 									          <hr>
-									          <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Last Name :  </strong>Test &nbsp;&nbsp;&nbsp; 
+									          <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; YouTube Link :  </strong>{{ $dms->youtube_link ?? '-' }} &nbsp;&nbsp;&nbsp; 
 									          <br>
 									          <hr>
+                                               <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Other social media :  </strong>{{ $dms->twitter_link ?? '-' }} &nbsp;&nbsp;&nbsp; 
+                                              <br>
+                                              <hr>
                                             </div>
                                             <div class="tab-pane fade" id="account-vertical-social" role="tabpanel" aria-labelledby="account-pill-social" aria-expanded="false">
-                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; First Name :  </strong>Test &nbsp;&nbsp;&nbsp;  
+                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Street/Avenue :  </strong>{{ $dms->address_1 ?? '-' }} &nbsp;&nbsp;&nbsp;  
 									          <br>
 									          <hr>
-									          <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Middle Name :  </strong>Test &nbsp;&nbsp;&nbsp; 
+									          <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Apartment / Nº :  </strong>{{ $dms->address_2 ?? '-' }} &nbsp;&nbsp;&nbsp; 
 									          <br>
 									          <hr>
-									          <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Last Name :  </strong>Test &nbsp;&nbsp;&nbsp; 
+									          <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Extra indications :  </strong>{{ $dms->address_3 ?? '-' }} &nbsp;&nbsp;&nbsp; 
 									          <br>
 									          <hr>
+                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Pin Code :  </strong>{{ $dms->pincode ?? '-' }} &nbsp;&nbsp;&nbsp; 
+                                              <br>
+                                              <hr>
+                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Area :  </strong>{{ $dms->area ?? '-' }} &nbsp;&nbsp;&nbsp; 
+                                              <br>
+                                              <hr>
+                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; City :  </strong>{{ $dms->city ?? '-' }} &nbsp;&nbsp;&nbsp; 
+                                              <br>
+                                              <hr>
+                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; State :  </strong>{{ $dms->state ?? '-' }} &nbsp;&nbsp;&nbsp; 
+                                              <br>
+                                              <hr>
+                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Country :  </strong>{{ $dms->country ?? '-' }} &nbsp;&nbsp;&nbsp; 
+                                              <br>
+                                              <hr>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="account-vertical-connections" aria-labelledby="account-vertical-connections" aria-expanded="false">
+                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Category :  </strong>{{ $dms->category_1 ?? '-' }} &nbsp;&nbsp;&nbsp;  
+                                              <br>
+                                              <hr>
+                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Sub-Category :  </strong>{{ $dms->category_2 ?? '-' }} &nbsp;&nbsp;&nbsp; 
+                                              <br>
+                                              <hr>
+                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Description :  </strong>{{ $dms->description ?? '-' }} &nbsp;&nbsp;&nbsp; 
+                                              <br>
+                                              <hr>
+
+                                           
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="account-vertical-notifications" aria-labelledby="account-vertical-notifications" aria-expanded="false">
+                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Five words that best describe you! :  </strong>{{ $dms->words_describe ?? '-' }} &nbsp;&nbsp;&nbsp;  
+                                              <br>
+                                              <hr>
+                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; 10 products you are best at! :  </strong>{{ $dms->product_best_at ?? '-' }} &nbsp;&nbsp;&nbsp; 
+                                              <br>
+                                              <hr>
+                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; I'm veggie friendly! :  </strong>{{ $dms->veg_non_veg ?? '-' }} &nbsp;&nbsp;&nbsp; 
+                                              <br>
+                                              <hr>
                                             </div>
                                     
                                         </div>
