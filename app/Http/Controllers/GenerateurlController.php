@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\TempTokens;
 
 class GenerateurlController extends Controller
 {
@@ -31,6 +32,11 @@ class GenerateurlController extends Controller
 
         try {
             $random = random_strings(8);
+
+            $tt = new TempTokens;
+            $tt->random = $random;
+            $tt->save();
+            
             $arr = array("status" => 200, 'random'=>encrypt($random));
         } catch (\Illuminate\Database\QueryException $ex) {
 
