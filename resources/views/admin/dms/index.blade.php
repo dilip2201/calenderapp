@@ -57,16 +57,19 @@
                                         class="spinner"></span></button>
                                 <a href="{{ route('admin.users.index') }}"  class="btn btn-danger waves-effect waves-light" style="margin-top: 18px;"><i class="fa fa-refresh" aria-hidden="true"></i> Reset</a>
                             </div>
-                            <div class="col-md-6" style="padding-left: 0px;margin-top: 20px;margin-left: 10px">
+                            <div class="col-md-6" >
                                      
-                                     <button type="submit" name="submittype" class="btn btn-danger btn-sm pdfsubmit" style="padding: 6px 16px;cursor: pointer;background-color: DodgerBlue; border-color: DodgerBlue; " value="pdf" class="btn btn-danger btn-sm"> <i class="fa fa-download" aria-hidden="true"></i> Pdf <span class="spinner"></span>
-                                     </button>
-                                     <button type="submit" name="submittype" class="btn btn-danger btn-sm pdfsubmit" value="excel" style="padding: 6px 16px;cursor: pointer;background-color: DodgerBlue; border-color: DodgerBlue; "  class="btn btn-success btn-sm" ><i class="fa fa-download" aria-hidden="true"></i>  Excel <span
-                                        class="spinner"></span>
-                                    </button>
+                                    
+
+                                     <button type="submit"  name="submittype" class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light pdfsubmit" value="pdf" > <i class="fa fa-download" aria-hidden="true"></i> Pdf <i class="fa fa-file-pdf-o"></i> <span class="spinner"></span></button>
+
+                                     <button type="submit"  name="submittype" class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light pdfsubmit" value="excel" > <i class="fa fa-download" aria-hidden="true"></i> Excel <i class="fa fa-file-excel-o"></i><span class="spinner"></span></button>
+
+
+                                     
                                     <a href="#" data-toggle="modal" data-typeid="" data-target=".import_excel"
-                                         class="btn btn-info btn-sm openimportmodal" data-id="" style="margin-left: 5px;">
-                                        <i class="fa fa-upload" aria-hidden="true"></i> Import
+                                         class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light openimportmodal" data-id="" >
+                                        <i class="fa fa-upload" aria-hidden="true"></i> Import </i> Excel <i class="fa fa-file-excel-o"></i>
                                     </a>
                                      
                             </div>

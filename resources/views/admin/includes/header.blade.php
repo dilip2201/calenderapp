@@ -1,13 +1,5 @@
     <nav class="header-navbar navbar-expand-lg navbar navbar-with-menu navbar-fixed navbar-shadow navbar-brand-center">
-        <div class="navbar-header d-xl-block d-none">
-            <ul class="nav navbar-nav flex-row">
-                <li class="nav-item"><a class="navbar-brand" href="{{ URL::asset('public/html/ltr/horizontal-menu-template/index.html') }}">
-                        <div class="brand-logo">
-                            
-                        </div>
-                    </a></li>
-            </ul>
-        </div>
+        
         <div class="navbar-wrapper">
             <div class="navbar-container content">
                 <div class="navbar-collapse" id="navbar-mobile">
@@ -16,7 +8,7 @@
                             <li class="nav-item mobile-menu d-xl-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ficon feather icon-menu"></i></a></li>
                         </ul>
                         <ul class="nav navbar-nav bookmark-icons">
-                            <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-todo.html" data-toggle="tooltip" data-placement="top" title="Todo"><i class="ficon feather icon-check-square"></i></a></li>
+                            <li class="nav-item d-none d-lg-block"><a style="padding: 0px;" class="nav-link" href="{{ url('admin/dashboard') }}" data-toggle="tooltip" data-placement="top"><img src="{{ URL::asset('public/images/favicon.png') }}" style="    height: 51px;"></a></li>
                            
                         </ul>
                        
