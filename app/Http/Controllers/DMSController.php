@@ -64,23 +64,23 @@ class DMSController extends Controller
             ->addColumn('name', function ($q) {
                   $name = '';
                   if(!empty($q->first_name)){
-                     $name.= " ".$q->first_name.',';
+                     $name.= " ".$q->first_name.' ';
                   }
                   if(!empty($q->middle_name)){
-                     $name.= " ".$q->middle_name.',';
+                     $name.= " ".$q->middle_name.' ';
                   }
                   if(!empty($q->last_name)){
-                     $name.= " ".$q->last_name.',';
+                     $name.= " ".$q->last_name;
                   }
                 return $name;
             })
             ->addColumn('mobile_no', function ($q) {
                   $c_code = '';
                   if(!empty($q->country_code)){
-                     $c_code.= " ".$q->country_code.',';
+                     $c_code.= " ".$q->country_code.' ';
                   }
                   if(!empty($q->mobile_no)){
-                     $c_code.= " ".$q->mobile_no.',';
+                     $c_code.= " ".$q->mobile_no;
                   }
                 return $c_code;
             })
@@ -93,7 +93,7 @@ class DMSController extends Controller
                      $address.= " ".$q->address_1.',';
                   }
                   if(!empty($q->address_2)){
-                     $address.= " ".$q->address_1.',';
+                     $address.= " ".$q->address_2.',';
                   }
                   if(!empty($q->address_2)){
                      $address.= " ".$q->address_3.',';
@@ -111,10 +111,10 @@ class DMSController extends Controller
                      $address.= " ".$q->country.',';
                   }
                   if(!empty($q->area)){
-                     $address.= " ".$q->area.',';
+                     $address.= " ".$q->area;
                   }
                   if(!empty($q->pincode)){
-                     $address.= " ".$q->pincode.',';
+                     $address.= "-".$q->pincode;
                   }
                 return $address;
             })
