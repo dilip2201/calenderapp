@@ -131,8 +131,12 @@
                      <div class="form-group">
                         <label></label>
                         <a class="link-unstyled" download="" href="{{ URL::asset('public/company/employee/sample.xlsx') }}" title="">
-                        <i class="fa fa-cloud-download pr10"></i> {{ __('Sample Sheet') }}</a>
+                        <i class="fa fa-cloud-download pr10"></i> {{ __('Sample Xls') }}</a>
                      </div>
+                     <div class="alert alert-warning" style="color: #4c4c4c!important;" role="alert"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Download the sample xls file. Read first row instruction and add the information as per instruction. There are two row of sample data for instruction you can remove it and add real data. 
+                      <br>
+                      <br>
+                     Once you fill the xls file import excel file and submit it.</div>
                      <div class="form-group">
                         <label for="customFile"> {{ __('Select File') }} <span class="text-danger">*</span></label> 
                         <div class="custom-file">
