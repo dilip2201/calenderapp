@@ -21,6 +21,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/user/data/{token}', 'DMSFormController@index');
+
+
+
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () { 
 
 	/***************** Dashboard *************************/

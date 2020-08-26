@@ -48,7 +48,7 @@
                                 <a href="{{ route('admin.users.index') }}"  class="btn btn-danger waves-effect waves-light" style="margin-top: 18px;"><i class="fa fa-refresh" aria-hidden="true"></i> Reset</a>
                             </div>
                             <div class="col-md-6" style="padding-left: 0px;margin-top: 20px;margin-left: 10px">
-                                     @if(Auth::user()->role == 'super_admin')
+                                     
                                      <button type="submit" name="submittype" class="btn btn-danger btn-sm pdfsubmit" style="padding: 6px 16px;cursor: pointer;background-color: DodgerBlue; border-color: DodgerBlue; " value="pdf" class="btn btn-danger btn-sm"> <i class="fa fa-download" aria-hidden="true"></i> Pdf <span class="spinner"></span>
                                      </button>
                                      <button type="submit" name="submittype" class="btn btn-danger btn-sm pdfsubmit" value="excel" style="padding: 6px 16px;cursor: pointer;background-color: DodgerBlue; border-color: DodgerBlue; "  class="btn btn-success btn-sm" ><i class="fa fa-download" aria-hidden="true"></i>  Excel <span
@@ -58,7 +58,7 @@
                                          class="btn btn-info btn-sm openimportmodal" data-id="" style="margin-left: 5px;">
                                         <i class="fa fa-upload" aria-hidden="true"></i> Import
                                     </a>
-                                      @endif
+                                     
                             </div>
                              </form>
                         </div>
@@ -66,9 +66,7 @@
                 </div>
                 <!-- /.card -->
           
-               <div class="dt-buttons btn-group" style="float: right;"><button data-toggle="modal" data-typeid="" data-target=".add_modal" class="btn btn-primary mb-1 waves-effect waves-light openaddmodal" style="padding: 10px;" tabindex="0" aria-controls="DataTables_Table_0"><span><i class="feather icon-plus"></i> Add New</span></button> </div>
-               
-                <div class="card-body" style="margin-top: 50px;">
+                <div class="card-body" style="margin-top: 10px;">
                     <!-- /.card-header -->
                     
                     <div class="table-responsive">
@@ -120,7 +118,7 @@
    <div class="modal-dialog modal-sm">
       <div class="modal-content">
          <div class="modal-header" style="padding: 5px 15px;">
-            <h5 class="modal-title">{{ __('message.Import Excel') }}</h5>
+            <h5 class="modal-title">{{ __('Import Excel') }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -133,21 +131,21 @@
                      <div class="form-group">
                         <label></label>
                         <a class="link-unstyled" download="" href="{{ URL::asset('public/company/employee/sample.xlsx') }}" title="">
-                        <i class="fa fa-cloud-download pr10"></i> {{ __('message.Sample Sheet') }}</a>
+                        <i class="fa fa-cloud-download pr10"></i> {{ __('Sample Sheet') }}</a>
                      </div>
                      <div class="form-group">
-                        <label for="customFile"> {{ __('message.Select File') }} <span class="text-danger">*</span></label> 
+                        <label for="customFile"> {{ __('Select File') }} <span class="text-danger">*</span></label> 
                         <div class="custom-file">
                            <input type="file" class="custom-file-input" name="file" required="" id="customFile">
                            <label class="custom-file-label" for="customFile">
-                           {{ __('message.Import Excel File') }}
+                           {{ __('Import Excel File') }}
                            </label>
                         </div>
                      </div>
                   </div>
                   <div class="col-md-12">
                      <div class="form-group">
-                        <button type="submit" class="btn btn-primary  submitbutton pull-right"> {{ __('message.Submit') }} <span class="spinner"></span></button>
+                        <button type="submit" class="btn btn-primary  submitbutton pull-right"> {{ __('Submit') }} <span class="spinner"></span></button>
                      </div>
                   </div>
                </div>
