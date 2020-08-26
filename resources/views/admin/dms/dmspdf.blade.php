@@ -111,9 +111,12 @@
                <table class="table table-bordered" style="width: 100%;">
                   <thead>
                      <tr>
-                        <th><h3><b>First Name</b></h3></th>
-                        <th><h3><b>Last Name</b></h3></th>
-                        <th><h3><b>Middle Name</b></h3></th>
+                        <th><h3><b>Name</b></h3></th>
+                         <th><h3><b>Mobile No.</b></h3></th>
+                          <th><h3><b>Email</b></h3></th>
+                           <th><h3><b>Address</b></h3></th>
+                        <th><h3><b>Description</b></h3></th>
+                        <th><h3><b>Veg Non-Veg</b></h3></th>
 
                      </tr>
                   </thead>
@@ -121,12 +124,63 @@
 
                   @if(!empty($dmses))
                   @foreach($dmses as $user)
-                  <tr>
-                     <td>{{ $user->first_name ?? ''}}</td>
-                     <td>{{ $user->last_name ?? '' }} </td>
-                     <td>{{ $user->middle_name?? ''}}</td>
+                  @php
 
-      
+                  $address = '';
+                  if(!empty($user->address_1)){
+                     $address.= " ".$user->address_1.',';
+                  }
+                  if(!empty($user->address_2)){
+                     $address.= " ".$user->address_1.',';
+                  }
+                  if(!empty($user->address_2)){
+                     $address.= " ".$user->address_3.',';
+                  }
+                  if(!empty($user->area)){
+                     $address.= " ".$user->area.',';
+                  }
+                  if(!empty($user->city)){
+                     $address.= " ".$user->city.',';
+                  }
+                  if(!empty($user->state)){
+                     $address.= " ".$user->state.',';
+                  }
+                  if(!empty($user->country)){
+                     $address.= " ".$user->country.',';
+                  }
+                  if(!empty($user->area)){
+                     $address.= " ".$user->area.',';
+                  }
+                  if(!empty($user->pincode)){
+                     $address.= " ".$user->pincode.',';
+                  }
+
+                  $name = '';
+                  if(!empty($user->first_name)){
+                     $name.= " ".$user->first_name.',';
+                  }
+                  if(!empty($user->middle_name)){
+                     $name.= " ".$user->middle_name.',';
+                  }
+                  if(!empty($user->last_name)){
+                     $name.= " ".$user->last_name.',';
+                  }
+
+                  $c_code = '';
+                  if(!empty($user->country_code)){
+                     $c_code.= " ".$user->country_code.',';
+                  }
+                  if(!empty($user->mobile_no)){
+                     $c_code.= " ".$user->mobile_no.',';
+                  }
+                  @endphp
+                  <tr>
+                     <td>{{ $name }}</td>
+                     <td>{{ $c_code }} </td>
+                     <td>{{ $user->email ?? '' }}</td>
+                     <td>{{ $address }}</td>
+                     <td>{{ $user->description ?? '' }}</td>
+                     <td>{{ $user->veg_non_veg ?? '' }}</td>
                   </tr>
                   @endforeach
                   @endif
