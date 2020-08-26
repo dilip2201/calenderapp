@@ -48,7 +48,7 @@
                                 <a href="{{ route('admin.users.index') }}"  class="btn btn-danger waves-effect waves-light" style="margin-top: 18px;"><i class="fa fa-refresh" aria-hidden="true"></i> Reset</a>
                             </div>
                             <div class="col-md-6" style="padding-left: 0px;margin-top: 20px;margin-left: 10px">
-                                     @if(Auth::user()->role == 'super_admin')
+                                     
                                      <button type="submit" name="submittype" class="btn btn-danger btn-sm pdfsubmit" style="padding: 6px 16px;cursor: pointer;background-color: DodgerBlue; border-color: DodgerBlue; " value="pdf" class="btn btn-danger btn-sm"> <i class="fa fa-download" aria-hidden="true"></i> Pdf <span class="spinner"></span>
                                      </button>
                                      <button type="submit" name="submittype" class="btn btn-danger btn-sm pdfsubmit" value="excel" style="padding: 6px 16px;cursor: pointer;background-color: DodgerBlue; border-color: DodgerBlue; "  class="btn btn-success btn-sm" ><i class="fa fa-download" aria-hidden="true"></i>  Excel <span
@@ -58,7 +58,7 @@
                                          class="btn btn-info btn-sm openimportmodal" data-id="" style="margin-left: 5px;">
                                         <i class="fa fa-upload" aria-hidden="true"></i> Import
                                     </a>
-                                      @endif
+                                     
                             </div>
                              </form>
                         </div>
