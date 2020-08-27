@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600">
 <div class="content-body">
                 <!-- account setting page start -->
                 <section id="page-account-settings">
@@ -63,7 +64,7 @@
                                            
                                             </div>
                                             <div class="tab-pane fade" id="account-vertical-password" role="tabpanel" aria-labelledby="account-pill-password" aria-expanded="false">
-                                               <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Email ID :  </strong>{{ $dms->email ?? '-' }} &nbsp;&nbsp;&nbsp;  
+                                               <strong><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp; Email ID :  </strong>{{ $dms->email ?? '-' }} &nbsp;&nbsp;&nbsp;  
 									          <br>
 									          <hr>
                                               @php
@@ -75,7 +76,7 @@
                                                      $c_code.= " ".$q->mobile_no;
                                                   }
                                               @endphp
-									          <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Mobile Number :  </strong>{{ $c_code ?? '-' }} &nbsp;&nbsp;&nbsp; 
+									          <strong><i class="fa fa-mobile" aria-hidden="true"></i>&nbsp; Mobile Number :  </strong>{{ $c_code ?? '-' }} &nbsp;&nbsp;&nbsp; 
 									          <br>
 									          <hr>
                                               @php
@@ -87,64 +88,64 @@
                                                      $c_code.= " ".$q->std_code;
                                                   }
                                               @endphp
-									          <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Std No. :  </strong>{{ $s_code }} &nbsp;&nbsp;&nbsp; 
+									          <strong><i class="fa fa-mobile" aria-hidden="true"></i>&nbsp; Std No. :  </strong>{{ $s_code }} &nbsp;&nbsp;&nbsp; 
 									          <br>
 									          <hr>
-									           <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Landline Number :  </strong>{{ $dms->landline_no ?? '-' }} &nbsp;&nbsp;&nbsp; 
+									           <strong><i class="fa fa-mobile" aria-hidden="true"></i>&nbsp; Landline Number :  </strong>{{ $dms->landline_no ?? '-' }} &nbsp;&nbsp;&nbsp; 
 									          <br>
 									          <hr>
-									           <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; WhatsApp-number :  </strong>{{ $dms->whatsapp_number ?? '-' }} &nbsp;&nbsp;&nbsp; 
+									           <strong><i class="fa fa-whatsapp" aria-hidden="true"></i>&nbsp; WhatsApp-number :  </strong>{{ $dms->whatsapp_number ?? '-' }} &nbsp;&nbsp;&nbsp; 
 									          <br>
 									          <hr>
                                             </div>
                                             <div class="tab-pane fade show" id="account-vertical-info" role="tabpanel" aria-labelledby="account-pill-info" aria-expanded="false">
-                                                 <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Facebook Link :  </strong>{{ $dms->fb_link ?? '-' }} &nbsp;&nbsp;&nbsp;  
+                                                 <strong><i class="fa fa-facebook-f" aria-hidden="true"></i>&nbsp; Facebook Link :  </strong>{{ $dms->fb_link ?? '-' }} &nbsp;&nbsp;&nbsp;  
 									          <br>
 									          <hr>
-									          <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Instagram Link :  </strong>{{ $dms->insta_link ?? '-' }} &nbsp;&nbsp;&nbsp; 
+									          <strong><i class="fa fa-instagram" aria-hidden="true"></i>&nbsp; Instagram Link :  </strong>{{ $dms->insta_link ?? '-' }} &nbsp;&nbsp;&nbsp; 
 									          <br>
 									          <hr>
-									          <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; YouTube Link :  </strong>{{ $dms->youtube_link ?? '-' }} &nbsp;&nbsp;&nbsp; 
+									          <strong><i class="fa fa-youtube" aria-hidden="true"></i>&nbsp; YouTube Link :  </strong>{{ $dms->youtube_link ?? '-' }} &nbsp;&nbsp;&nbsp; 
 									          <br>
 									          <hr>
-                                               <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Other social media :  </strong>{{ $dms->twitter_link ?? '-' }} &nbsp;&nbsp;&nbsp; 
+                                               <strong><i class="fa fa-link" aria-hidden="true"></i>&nbsp; Other social media :  </strong>{{ $dms->twitter_link ?? '-' }} &nbsp;&nbsp;&nbsp; 
                                               <br>
                                               <hr>
                                             </div>
                                             <div class="tab-pane fade" id="account-vertical-social" role="tabpanel" aria-labelledby="account-pill-social" aria-expanded="false">
-                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Street/Avenue :  </strong>{{ $dms->address_1 ?? '-' }} &nbsp;&nbsp;&nbsp;  
+                                              <strong><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp; Street/Avenue :  </strong>{{ $dms->address_1 ?? '-' }} &nbsp;&nbsp;&nbsp;  
 									          <br>
 									          <hr>
-									          <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Apartment / Nº :  </strong>{{ $dms->address_2 ?? '-' }} &nbsp;&nbsp;&nbsp; 
+									          <strong><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp; Apartment / Nº :  </strong>{{ $dms->address_2 ?? '-' }} &nbsp;&nbsp;&nbsp; 
 									          <br>
 									          <hr>
-									          <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Extra indications :  </strong>{{ $dms->address_3 ?? '-' }} &nbsp;&nbsp;&nbsp; 
+									          <strong><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp; Extra indications :  </strong>{{ $dms->address_3 ?? '-' }} &nbsp;&nbsp;&nbsp; 
 									          <br>
 									          <hr>
-                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Pin Code :  </strong>{{ $dms->pincode ?? '-' }} &nbsp;&nbsp;&nbsp; 
+                                              <strong><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp; Pin Code :  </strong>{{ $dms->pincode ?? '-' }} &nbsp;&nbsp;&nbsp; 
                                               <br>
                                               <hr>
-                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Area :  </strong>{{ $dms->area ?? '-' }} &nbsp;&nbsp;&nbsp; 
+                                              <strong><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp; Area :  </strong>{{ $dms->area ?? '-' }} &nbsp;&nbsp;&nbsp; 
                                               <br>
                                               <hr>
-                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; City :  </strong>{{ $dms->city ?? '-' }} &nbsp;&nbsp;&nbsp; 
+                                              <strong><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp; City :  </strong>{{ $dms->city ?? '-' }} &nbsp;&nbsp;&nbsp; 
                                               <br>
                                               <hr>
-                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; State :  </strong>{{ $dms->state ?? '-' }} &nbsp;&nbsp;&nbsp; 
+                                              <strong><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp; State :  </strong>{{ $dms->state ?? '-' }} &nbsp;&nbsp;&nbsp; 
                                               <br>
                                               <hr>
-                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Country :  </strong>{{ $dms->country ?? '-' }} &nbsp;&nbsp;&nbsp; 
+                                              <strong><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp; Country :  </strong>{{ $dms->country ?? '-' }} &nbsp;&nbsp;&nbsp; 
                                               <br>
                                               <hr>
                                             </div>
                                             <div role="tabpanel" class="tab-pane fade" id="account-vertical-connections" aria-labelledby="account-vertical-connections" aria-expanded="false">
-                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Category :  </strong>{{ $dms->category_1 ?? '-' }} &nbsp;&nbsp;&nbsp;  
+                                              <strong><i class="fa fa-list-alt" aria-hidden="true"></i>&nbsp; Category :  </strong>{{ $dms->category_1 ?? '-' }} &nbsp;&nbsp;&nbsp;  
                                               <br>
                                               <hr>
-                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Sub-Category :  </strong>{{ $dms->category_2 ?? '-' }} &nbsp;&nbsp;&nbsp; 
+                                              <strong><i class="fa fa-tag" aria-hidden="true"></i>&nbsp; Sub-Category :  </strong>{{ $dms->category_2 ?? '-' }} &nbsp;&nbsp;&nbsp; 
                                               <br>
                                               <hr>
-                                              <strong><i class="fa fa-book" aria-hidden="true"></i>&nbsp; Description :  </strong>{{ $dms->description ?? '-' }} &nbsp;&nbsp;&nbsp; 
+                                              <strong><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp; Description :  </strong>{{ $dms->description ?? '-' }} &nbsp;&nbsp;&nbsp; 
                                               <br>
                                               <hr>
 
