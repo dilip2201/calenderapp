@@ -177,7 +177,7 @@
 </div>
 
 
-<script src="https://jqueryvalidation.org/files/lib/jquery.js"></script>
+@push('script')
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -268,5 +268,5 @@
         });
 
     </script>
-
+@endpush
 @endsection
