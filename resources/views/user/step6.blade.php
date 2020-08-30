@@ -17,13 +17,7 @@
 
             	<a href="#" class="button w-button">Upload a Display Picture</a>
 
-               <form action="{{ url('image/store') }}" enctype="multipart/form-data" class="dropzone" id="image-upload">
-               {{ csrf_field() }}
-               <div>
-                  <h3>Upload multiple equipment image</h3>
-               </div>
-            </form>
-
+           
 
             <div class="div-next">
       <a class="submit-button w-button previousclick" data-planid="{{ $token }}" data-type="previous" data-pageid="5" style="background: #ffbb05; color: #000; ">
