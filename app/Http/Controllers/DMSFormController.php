@@ -35,6 +35,10 @@ class DMSFormController extends Controller
 
         $token = TempTokens::where('random',$value)->first();
         if(!empty($token)){
+            if($token->final_submit == 1){
+                $msg = "You've already submitted the form.";
+                return view('user.error',compact('msg'));
+            }
             $token = $value;
             return view('user.index',compact('token'));
         }else{
@@ -324,9 +328,9 @@ class DMSFormController extends Controller
                     $td->words_describe = $request->words_describe;
                     $td->product_best_at = $request->product_best_at;
                     if($request->veg_non_veg == '1'){
-                        $td->veg_non_veg = 'veg';
+                        $td->veg_non_veg = 'Veg';
                     }else{
-                        $td->veg_non_veg = 'non_veg';
+                        $td->veg_non_veg = 'Non-Veg';
                     }
                     $td->step = 7;
                     $td->save();
@@ -391,6 +395,7 @@ class DMSFormController extends Controller
                     $dms->gender = $td->gender;
                     $dms->country_code = $td->country_code;
                     $dms->mobile_no = $td->mobile_no;
+                    $dms->image = $td->image;
                     $dms->std_code = $td->std_code;
                     $dms->landline_no = $td->landline_no;
                     $dms->email = $td->email;

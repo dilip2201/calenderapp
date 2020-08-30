@@ -145,16 +145,33 @@
                <input type="hidden" class="buttontype" value="verify" name="buttontype">
                <input type="hidden" class="is_verified" name="is_verified" value="0">
                <div class="row">
-                  <div class="col-md-12">
-                     <div class="form-group">
+
+                <div class="col-md-12">
+                    <div class="form-group">
                         <label></label>
                         <a class="link-unstyled" download="" href="{{ URL::asset('public/company/employee/sample.xlsx') }}" title="">
                         <i class="fa fa-cloud-download pr10"></i> {{ __('Sample Xls') }}</a>
-                     </div>
-                     <div class="alert alert-warning" style="color: #4c4c4c!important;" role="alert"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <b style="color: red;">Download the sample xls</b> file. Read first row instruction and add the information as per instruction. There are two row of sample data for instruction you can remove it and add real data. 
+                    </div>
+                    <div class="alert alert-warning" style="color: #4c4c4c!important;" role="alert"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <b style="color: red;">Download the sample xls</b> file. Read first row instruction and add the information as per instruction. There are two row of sample data for instruction you can remove it and add real data. 
                       <br>
                       <br>
                      Once you fill the xls file <b style="color: red;">Upload with Browse</b> and  <b style="color: red;">Click on Verify XLS</b> button. If you've no error then <b style="color: red;">submit</b> it.</div>
+                   </div>
+                     <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Data Source <span class="text-danger">*</span></label>
+                          <input type="text" class="form-control" placeholder="Data Source " name="data_source" maxlength="50" required>
+                        </div>  
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Data Source Description <span class="text-danger">*</span></label>
+                          <textarea class="form-control" rows="2" placeholder="Data Source Description" name="data_source_description" maxlength="50"  required></textarea>
+                         
+                        </div>  
+                     </div>
+                  <div class="col-md-12">
+
                      <div class="form-group">
                         <label for="customFile"> {{ __('Select File') }} <span class="text-danger">*</span></label> 
                         <div class="custom-file">

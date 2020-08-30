@@ -625,6 +625,8 @@ class DMSController extends Controller
                         
                         $user->gst_no = $gst_no;
                         $user->gst_number = $gst_number;
+                        $user->data_source = $request->data_source;
+                        $user->data_source_description = $request->data_source_description;
                         $user->save();
 
                       
