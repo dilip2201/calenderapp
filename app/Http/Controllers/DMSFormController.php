@@ -295,6 +295,9 @@ class DMSFormController extends Controller
         $rules = [
             'brand_name' => 'nullable',
         ];
+        if ($request->hasFile('image')) {
+            $rules['image'] = 'mimes:jpeg,jpg,png,gif|required|max:2024';
+        }
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             $arr = array("status" => 400, "msg" => $validator->errors()->first(), "result" => array());
@@ -307,6 +310,16 @@ class DMSFormController extends Controller
                 $tokendata = TempTokens::where('random',$token)->first();
                 if(!empty($tokendata)){
                     $td = TempTokens::find($tokendata->id);
+
+
+                    if ($request->hasFile('image')) {
+                        $destinationPath = public_path().'/company/employee';
+                        $file = $request->image;
+                        $fileName = time() . '.'.$file->clientExtension();
+                        $file->move($destinationPath, $fileName);
+                        $td->image = $fileName;
+                    }
+
                     $td->brand_name = $request->brand_name;
                     $td->words_describe = $request->words_describe;
                     $td->product_best_at = $request->product_best_at;

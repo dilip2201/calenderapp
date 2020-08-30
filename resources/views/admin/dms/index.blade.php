@@ -2,7 +2,7 @@
 @section('content')
 @section('pageTitle', 'Dms')
 
-
+<div class="test">
 
     <div class="row">
         <div class="col-12" style="margin-top: -40px;">
@@ -60,17 +60,18 @@
                             <div class="col-md-6" >
                                      
                                     
-
+                                    @if(Auth::user()->role == 'super_admin')
                                      <button type="submit"  name="submittype" class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light pdfsubmit" value="pdf" > <i class="fa fa-download" aria-hidden="true"></i> Pdf <i class="fa fa-file-pdf-o"></i> <span class="spinner"></span></button>
 
                                      <button type="submit"  name="submittype" class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light pdfsubmit" value="excel" > <i class="fa fa-download" aria-hidden="true"></i> Excel <i class="fa fa-file-excel-o"></i><span class="spinner"></span></button>
-
+                                    @endif
 
                                      
                                     <a href="#" data-toggle="modal" data-typeid="" data-target=".import_excel"
                                          class="btn btn-outline-primary mr-1 mb-1 waves-effect waves-light openimportmodal" data-id="" >
                                         <i class="fa fa-upload" aria-hidden="true"></i> Import </i> Excel <i class="fa fa-file-excel-o"></i>
                                     </a>
+
                                      
                             </div>
                              </form>
@@ -189,7 +190,7 @@
    <!-- /.modal-dialog -->
 </div>
 
-
+</div>
 @push('script')
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -199,6 +200,7 @@
 
     <script>
         $(function () {
+
           $('.verifyxls').on('click',function(){
             $('.buttontype').val('verify');
           });
@@ -209,7 +211,10 @@
             $('.tableload').html('');
             $('.is_verified').val('0');
           })
-          
+          $('.test').on("cut copy paste",function(e) {
+              e.preventDefault();
+           });
+            
             /* datatable */
             $("#employee").DataTable({
                 "responsive": true,

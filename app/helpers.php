@@ -13,6 +13,23 @@ function random_strings($length_of_string)
     $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'; 
     return substr(str_shuffle($str_result), 0, $length_of_string); 
 }
+/**
+ * For check permission
+ */
+function checkPermission($permissions)
+{
+    if (auth()->check()) {
+        $userAccess = auth()->user()->role;
+        foreach ($permissions as $key => $value) {
+            if ($value == $userAccess) {
+                return true;
+            }
+        }
+        return false;
+    } else {
+        return false;
+    }
+}
 
 function callAPI($method, $url, $data){
    $curl = curl_init();
