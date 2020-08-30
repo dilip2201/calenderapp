@@ -141,6 +141,8 @@
          <div class="modal-body">
             <form  autocorrect="off" action="{{ route('admin.dms.importexcel') }}" autocomplete="off" method="post" class="form-horizontal form-bordered importexcel">
                {{ csrf_field() }}
+               <input type="hidden" class="buttontype" value="verify" name="buttontype">
+               <input type="hidden" class="is_verified" name="is_verified" value="0">
                <div class="row">
                   <div class="col-md-12">
                      <div class="form-group">
@@ -148,10 +150,10 @@
                         <a class="link-unstyled" download="" href="{{ URL::asset('public/company/employee/sample.xlsx') }}" title="">
                         <i class="fa fa-cloud-download pr10"></i> {{ __('Sample Xls') }}</a>
                      </div>
-                     <div class="alert alert-warning" style="color: #4c4c4c!important;" role="alert"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Download the sample xls file. Read first row instruction and add the information as per instruction. There are two row of sample data for instruction you can remove it and add real data. 
+                     <div class="alert alert-warning" style="color: #4c4c4c!important;" role="alert"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <b style="color: red;">Download the sample xls</b> file. Read first row instruction and add the information as per instruction. There are two row of sample data for instruction you can remove it and add real data. 
                       <br>
                       <br>
-                     Once you fill the xls file import excel file and submit it.</div>
+                     Once you fill the xls file <b style="color: red;">Upload with Browse</b> and  <b style="color: red;">Click on Verify XLS</b> button. If you've no error then <b style="color: red;">submit</b> it.</div>
                      <div class="form-group">
                         <label for="customFile"> {{ __('Select File') }} <span class="text-danger">*</span></label> 
                         <div class="custom-file">
@@ -159,12 +161,23 @@
                            <label class="custom-file-label" for="customFile">
                            {{ __('Import Excel File') }}
                            </label>
+
                         </div>
+                     </div>
+                  </div>
+                   <div class="col-md-12">
+                     <div class="form-group">
+                        <button type="submit" class="btn btn-success  verifyxls pull-left" value="verify" name="submittype"> Verify XLS <i class="fa fa-check"></i><span class="spinner"></span></button>
+                     </div>
+                  </div>
+                  <div class="col-md-12">
+                     <div class="form-group tableload">
+                        
                      </div>
                   </div>
                   <div class="col-md-12">
                      <div class="form-group">
-                        <button type="submit" class="btn btn-primary  submitbutton pull-right"> {{ __('Submit') }} <span class="spinner"></span></button>
+                        <button type="submit" class="btn btn-primary  submitbutton pull-right"> {{ __('Submit') }} <span class="subspinner"></span></button>
                      </div>
                   </div>
                </div>
@@ -186,6 +199,17 @@
 
     <script>
         $(function () {
+          $('.verifyxls').on('click',function(){
+            $('.buttontype').val('verify');
+          });
+          $('.submitbutton').on('click',function(){
+            $('.buttontype').val('submit');
+          });
+          $('.openimportmodal').on('click',function(){
+            $('.tableload').html('');
+            $('.is_verified').val('0');
+          })
+          
             /* datatable */
             $("#employee").DataTable({
                 "responsive": true,
@@ -221,7 +245,11 @@
             })
         });
         $('body').on('submit', '.importexcel', function (e) {
+          var buttontype = $('.buttontype').val();
+          var is_verified = $('.is_verified').val();
+
           e.preventDefault();
+          
           $.ajax({
               url: $(this).attr('action'),
               data: new FormData(this),
@@ -230,17 +258,34 @@
               cache: false,
               processData: false,
               beforeSend: function () {
+                if(buttontype == 'verify'){
                   $('.spinner').html('<i class="fa fa-spinner fa-spin"></i>')
+                }else{
+                  $('.subspinner').html('<i class="fa fa-spinner fa-spin"></i>')
+                }
               },
               success: function (data) {
-                 
+
+
+                  $('.spinner').html('')
+                  $('.subspinner').html('')
+                  if(data.status == 201){
+                    if(data.verify == 1){
+                      $('.tableload').html(data.html);
+                      $('.is_verified').val('1');
+                    }
+                    if(data.verify == 0){
+
+                      $('.tableload').html(data.html);
+                    }
+                  }
                   if (data.status == 400) {
-                      $('.spinner').html('');
                       toastr.error(data.msg)
                   }
                   if (data.status == 200) {
-                      $('.spinner').html('');
+                      
                       $('.import_excel').modal('hide');
+                      $('.importexcel')[0].reset()
                       $('#employee').DataTable().ajax.reload();
                       toastr.success(data.msg)
                   }

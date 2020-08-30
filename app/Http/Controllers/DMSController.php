@@ -265,154 +265,396 @@ class DMSController extends Controller
     
 
     public function importexcel(Request $request)
-    {      
-        $extension = '';
-        if(!empty($request->file)){
-            $extension = $request->file->getClientOriginalExtension();
-        }
+    {
+        if($request->buttontype == 'verify'){
+          $extension = '';
+          if(!empty($request->file)) {
+              $extension = $request->file->getClientOriginalExtension();
+          }
 
-        $validator = Validator::make(
-          [
-              'file'      => $request->file,
-              'extension' => $extension,
-          ],
-          [
-              'file'          => 'required',
-              'extension'      => 'required|in:doc,csv,xlsx,xls,docx,ppt,odt,ods,odp',
-          ]
-        );
-        if ($validator->fails()) {
-            $arr = array("status" => 400, "msg" => $validator->errors()->first(), "result" => array());
-        } else {
-           
+          $validator = Validator::make(['file'=>$request->file,'extension'=>$extension],['file'=>'required','extension'      => 'required|in:doc,csv,xlsx,xls,docx,ppt,odt,ods,odp']);
+          if ($validator->fails()) {
+              $arr = array("status" => 400, "msg" => $validator->errors()->first(), "result" => array());
+          } else {
             try {
-                  
-                if($extension == 'xlsx') {
-                    $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-                } else {
-                    $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
-                }
-                // file path
-                $spreadsheet = $reader->load($_FILES['file']['tmp_name']);
-                $allDataInSheet = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-                
-                // array Count
-                $arrayCount = count($allDataInSheet);
-                
-                for ($i = 1; $i <= $arrayCount; $i ++) {
-                  if($i > 1){
                     
-                    
-                      $first_name =  $allDataInSheet[$i]['A'];
-                      $middle_name =  $allDataInSheet[$i]['B'];
-                      $last_name =  $allDataInSheet[$i]['C'];
-                      $dob =  $allDataInSheet[$i]['D'];
-                      $gender =  $allDataInSheet[$i]['E'];
-                      $email =  $allDataInSheet[$i]['F'];
-
-                      $country_code =  $allDataInSheet[$i]['G'];
-                      $mobile_no =  $allDataInSheet[$i]['H'];
-                      $std_code =  $allDataInSheet[$i]['I'];
-                      $landline_no =  $allDataInSheet[$i]['J'];
-                      $whatsapp_number =  $allDataInSheet[$i]['K'];
-                      $fb_link =  $allDataInSheet[$i]['L'];
-                      $insta_link =  $allDataInSheet[$i]['M'];
-                      $youtube_link =  $allDataInSheet[$i]['N'];
-                      $twitter_link =  $allDataInSheet[$i]['O'];
-
-                      $address_1 =  $allDataInSheet[$i]['P'];
-                      $address_2 =  $allDataInSheet[$i]['Q'];
-                      $address_3 =  $allDataInSheet[$i]['R'];
-                      $pincode =  $allDataInSheet[$i]['S'];
-                      $area =  $allDataInSheet[$i]['T'];
-                      $city =  $allDataInSheet[$i]['U'];
-                      $state =  $allDataInSheet[$i]['V'];
-                      $country =  $allDataInSheet[$i]['W'];
-
-                      $category_1 =  $allDataInSheet[$i]['X'];
-                      $category_2 =  $allDataInSheet[$i]['Y'];
-                      $description =  $allDataInSheet[$i]['Z'];
-
-                      $brand_name =  $allDataInSheet[$i]['AA'];
-
-                      $words_describe =  $allDataInSheet[$i]['AB'];
-                      $product_best_at =  $allDataInSheet[$i]['AC'];
-                      $veg_non_veg =  $allDataInSheet[$i]['AD'];
-                      $fssai =  $allDataInSheet[$i]['AE'];
-                      $fssaino =  $allDataInSheet[$i]['AF'];
-                      $gst_no =  $allDataInSheet[$i]['AG'];
-                      $gst_number =  $allDataInSheet[$i]['AH'];
-                      
-
-                      $user = new DMS;
-                      $user->first_name = $first_name;
-                      $user->middle_name = $middle_name;
-                      $user->last_name = $last_name;
-                      $user->dob = date('Y-m-d',strtotime($dob));
-                      $user->gender = $gender;
-
-                      $user->country_code = $country_code;
-                      $user->mobile_no = $mobile_no;
-                      $user->std_code = $std_code;
-                      $user->landline_no = $landline_no;
-                      $user->email = $email;
-                      $user->whatsapp_number = $whatsapp_number;
-                      $user->fb_link = $fb_link;
-                      $user->insta_link = $insta_link;
-                      $user->youtube_link = $youtube_link;  
-                      $user->twitter_link = $twitter_link;  
-                      $user->address_1 = $address_1;
-                      $user->address_2 = $address_2;
-                      $user->address_3 = $address_3;
-                      $user->pincode = $pincode;
-                      $user->area = $area;
-                      $user->city = $city;
-                      $user->state = $state;
-                      $user->country = $country;
-                      $user->category_1 = $category_1;
-                      $user->category_2 = $category_2;
-                      $user->description = $description;
-
-                      
-                      $user->brand_name = $brand_name;
-
-                      $user->words_describe = $words_describe;
-                      $user->product_best_at = $product_best_at;
-                      $user->veg_non_veg = $veg_non_veg;
-                      $user->fssai = $fssai;
-                      $user->fssai_no = $fssaino;
-                      
-                      $user->gst_no = $gst_no;
-                      $user->gst_number = $gst_number;
-                      $user->save();
-
-                    
-                    
+                  if($extension == 'xlsx') {
+                      $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+                  } else {
+                      $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
                   }
+                  // file path
+                  $spreadsheet = $reader->load($_FILES['file']['tmp_name']);
+                  $allDataInSheet = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
                   
+                  // array Count
+                  $arrayCount = count($allDataInSheet);
+                  $errors = array();
+                  for ($i = 1; $i <= $arrayCount; $i ++) {
+                    if($i > 1){
 
-                }
-                $msg = "Data inserted Successfully.";
-                $arr = array("status" => 200, "msg" => $msg, "result" => array());
-            } catch (\Illuminate\Database\QueryException $ex) {
-                $msg = $ex->getMessage();
-                if (isset($ex->errorInfo[2])) :
-                    $msg = $ex->errorInfo[2];
-                endif;
-               
-                $arr = array("status" => 400, "msg" => $msg, "result" => array());
-            } catch (Exception $ex) {
-                $msg = $ex->getMessage();
-                if (isset($ex->errorInfo[2])) :
-                    $msg = $ex->errorInfo[2];
-                endif;
-              
-                $arr = array("status" => 400, "msg" => $msg, "result" => array());
-            }
-           
+                        $first_name =  $allDataInSheet[$i]['A'];
+                        if(empty($first_name)){
+                          $errors[$i][] = array('type'=>"First Name",'error'=>"First Name field is required.");
+                        }else{
+                          if(strlen($first_name) > 50){
+                              $errors[$i][] = array('type'=>"First Name",'error'=>"Add no more than 50 char.");
+                          }
+                        }
+
+                        $middle_name =  $allDataInSheet[$i]['B'];
+                        if(!empty($middle_name) &&  strlen($middle_name) > 50) {
+                           $errors[$i][] = array('type'=>"Middle Name",'error'=>"Add no more than 50 char.");
+                        }
+                        $last_name =  $allDataInSheet[$i]['C'];
+                        
+                        if(!empty($last_name) &&  strlen($last_name) > 50) {
+                           $errors[$i][] = array('type'=>"Last Name",'error'=>"Add no more than 50 char.");
+                        }
+                        $dob =  $allDataInSheet[$i]['D'];
+                       
+                        $gender =  $allDataInSheet[$i]['E'];
+                        if(!empty($gender) &&  !in_array($gender, array('male','female'))) {
+                           $errors[$i][] = array('type'=>"Gender",'error'=>"Gender should be male or female");
+                        }
+
+                        $email =  $allDataInSheet[$i]['F'];
+
+                        if(!empty($email) &&  !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                           $errors[$i][] = array('type'=>"Email",'error'=>"Invalid email format");
+                        }
+
+
+                        $country_code =  $allDataInSheet[$i]['G'];
+                        $mobile_no =  $allDataInSheet[$i]['H'];
+
+                        if($country_code == '91' && !empty($mobile_no) && strlen($mobile_no) > 10) {
+                           $errors[$i][] = array('type'=>"Mobile No",'error'=>"Add no more than 10 digit if country code is India.");
+                        }
+
+                        if(!empty($mobile_no)){
+                          if(!is_numeric($mobile_no)) {
+                              $errors[$i][] = array('type'=>"Mobile No",'error'=>"Mobile No should be numeric.");  
+                            }
+                        }
+
+                        $std_code =  $allDataInSheet[$i]['I'];
+                        if(!empty($std_code)) {
+                            if(strlen($std_code) > 5){
+                                $errors[$i][] = array('type'=>"STD code",'error'=>"Add no more than 5 numeric value.");   
+                            }
+                            if(!is_numeric($std_code)) {
+                              $errors[$i][] = array('type'=>"STD code",'error'=>"STD code should be numeric.");  
+                            }
+                           
+                        }
+                        
+
+
+                        $landline_no =  $allDataInSheet[$i]['J'];
+
+                        if(!empty($landline_no)) {
+                            if(strlen($landline_no) > 10){
+                                $errors[$i][] = array('type'=>"Landline No.",'error'=>"Add no more than 10 numeric value.");   
+                            }
+                            if(!is_numeric($landline_no)) {
+                              $errors[$i][] = array('type'=>"Landline No.",'error'=>"Landline No. should be numeric.");  
+                            }
+                           
+                        }
+
+
+                        $whatsapp_number =  $allDataInSheet[$i]['K'];
+                        if(!empty($whatsapp_number)) {
+                            if($country_code == '91' && strlen($whatsapp_number) > 10){
+                                $errors[$i][] = array('type'=>"Whatsapp Number",'error'=>"Add no more than 10 digit if country code is India.");   
+                            }
+                            if(!is_numeric($whatsapp_number)) {
+                              $errors[$i][] = array('type'=>"Whatsapp Number",'error'=>"Whatsapp Number should be numeric.");  
+                            }
+                           
+                        }
+
+
+                        $fb_link =  $allDataInSheet[$i]['L'];
+                        if(!empty($fb_link) && !preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$fb_link)) {
+                          $errors[$i][] = array('type'=>"FB Link",'error'=>"Invalid FB Link URL");  
+                        }
+                        $insta_link =  $allDataInSheet[$i]['M'];
+                        if(!empty($insta_link) && !preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$insta_link)) {
+                          $errors[$i][] = array('type'=>"Insta Link",'error'=>"Invalid Insta Link URL");  
+                        }
+                        $youtube_link =  $allDataInSheet[$i]['N'];
+                        if(!empty($youtube_link) && !preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$youtube_link)) {
+                          $errors[$i][] = array('type'=>"Youtube Link",'error'=>"Invalid Youtube Link URL");  
+                        }
+                        $twitter_link =  $allDataInSheet[$i]['O'];
+                        if(!empty($twitter_link) && !preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$twitter_link)) {
+                          $errors[$i][] = array('type'=>"Youtube Link",'error'=>"Invalid Other Social Media URL");  
+                        }
+
+                        $address_1 =  $allDataInSheet[$i]['P'];
+
+                        if(!empty($address_1) &&  strlen($address_1) > 50) {
+                           $errors[$i][] = array('type'=>"Street/Avenue",'error'=>"Add no more than 50 char.");
+                        }
+                        $address_2 =  $allDataInSheet[$i]['Q'];
+                        if(!empty($address_2) &&  strlen($address_2) > 50) {
+                           $errors[$i][] = array('type'=>"Apartment / No",'error'=>"Add no more than 50 char.");
+                        }
+                        $address_3 =  $allDataInSheet[$i]['R'];
+                        if(!empty($address_3) &&  strlen($address_3) > 50) {
+                           $errors[$i][] = array('type'=>"Extra indications",'error'=>"Add no more than 50 char.");
+                        }
+
+                        $pincode =  $allDataInSheet[$i]['S'];
+
+                        if(!empty($pincode)) {
+                            if(strlen($pincode) > 6){
+                                $errors[$i][] = array('type'=>"Pincode",'error'=>"Add no more than 6 digit.");   
+                            }
+                            if(!is_numeric($pincode)) {
+                              $errors[$i][] = array('type'=>"Pincode",'error'=>"Pincode should be numeric.");  
+                            }
+                        }
+
+                        $area =  $allDataInSheet[$i]['T'];
+                        $city =  $allDataInSheet[$i]['U'];
+                        $state =  $allDataInSheet[$i]['V'];
+                        $country =  $allDataInSheet[$i]['W'];
+
+
+                        $category_1 =  $allDataInSheet[$i]['X'];
+                        $category_2 =  $allDataInSheet[$i]['Y'];
+                        $description =  $allDataInSheet[$i]['Z'];
+                        if(!empty($description) && strlen($mobile_no) > 200) {
+                           $errors[$i][] = array('type'=>"Description",'error'=>"Add no more than 200 char.");
+                        }
+
+
+                        $brand_name =  $allDataInSheet[$i]['AA'];
+
+                        $words_describe =  $allDataInSheet[$i]['AB'];
+                        $product_best_at =  $allDataInSheet[$i]['AC'];
+                        $veg_non_veg =  $allDataInSheet[$i]['AD'];
+                        if(!empty($veg_non_veg) &&  !in_array($veg_non_veg, array('Veg','Non-Veg'))) {
+                           $errors[$i][] = array('type'=>"Are Veg or Non-Veg?",'error'=>"Are Veg or Non-Veg? should be Veg or Non-Veg");
+                        }
+
+                       
+
+                        $fssai =  $allDataInSheet[$i]['AE'];
+                         if(!empty($fssai) &&  !in_array($fssai, array('yes','no'))) {
+                           $errors[$i][] = array('type'=>"FSSAI",'error'=>"FSSAI should be yes or no");
+                        }
+
+                        $fssaino =  $allDataInSheet[$i]['AF'];
+                        $gst_no =  $allDataInSheet[$i]['AG'];
+                         if(!empty($gst_no) &&  !in_array($gst_no, array('yes','no'))) {
+                           $errors[$i][] = array('type'=>"GST No",'error'=>"GST No should be yes or no");
+                        }
+                        $gst_number =  $allDataInSheet[$i]['AH'];
+                    }
+                    
+
+                  }
+                  $verify = 1;
+                  $return = '';
+
+                 
+
+                  if(!empty($errors)){
+                    $verify = 0;
+
+                    foreach ($errors as $key => $errorarray) {
+                      $return .= '<table style="width:100%; margin-top:15px;">';
+                      $return .= '<tr>
+                        <td style="border:1px solid #000" colspan="2"><b style="color:red;">Validate Row #'.$key.'</b></td>
+                      </tr>';
+                       $return .= '<tr>
+                        <th style="border:1px solid #000; color:#000; text-align:center;" >Field</th>
+                        <th style="border:1px solid #000; color:#000; text-align:center;">Error</th></tr>';
+                     
+                      foreach ($errorarray as $finalerror) {
+                        $return .= '<tr>
+                        <td style="border:1px solid #000">'.$finalerror['type'].'</td>
+                        <td style="border:1px solid #000">'.$finalerror['error'].'</td></tr>';
+                       
+                      }
+                       $return .=  '</table>';
+                    }
+                    
+
+
+                  }else{
+                    $return .= '<div class="alert alert-success" style="color: #4c4c4c!important; margin-top:15px;" role="alert"><i class="fa fa-check" aria-hidden="true"></i>You\'ve no error in XLS file you can submit it now.</div>';
+                  }
+                  $msg = "Data inserted Successfully.";
+                  $arr = array("status" => 201, "verify" => $verify, "html" => $return);
+              } catch (\Illuminate\Database\QueryException $ex) {
+                  $msg = $ex->getMessage();
+                  if (isset($ex->errorInfo[2])) :
+                      $msg = $ex->errorInfo[2];
+                  endif;
+                 
+                  $arr = array("status" => 400, "msg" => $msg, "result" => array());
+              } catch (Exception $ex) {
+                  $msg = $ex->getMessage();
+                  if (isset($ex->errorInfo[2])) :
+                      $msg = $ex->errorInfo[2];
+                  endif;
+                
+                  $arr = array("status" => 400, "msg" => $msg, "result" => array());
+              }
+
+            
+          }
+          return \Response::json($arr);
+        }else{
+          /******************************* Form Submit start *********************/
+          if($request->is_verified == '0'){
+             $arr = array("status" => 400, "msg" => "Please verify XLS and resolve the validations to submit your data.", "result" => array());
+             return \Response::json($arr);
+          }
+          $extension = '';
+          if(!empty($request->file)) {
+              $extension = $request->file->getClientOriginalExtension();
+          }
+
+          $validator = Validator::make(['file'=>$request->file,'extension'=>$extension],['file'=>'required','extension'      => 'required|in:doc,csv,xlsx,xls,docx,ppt,odt,ods,odp']);
+          if ($validator->fails()) {
+              $arr = array("status" => 400, "msg" => $validator->errors()->first(), "result" => array());
+          } else {
+             
+              try {
+                    
+                  if($extension == 'xlsx') {
+                      $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+                  } else {
+                      $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+                  }
+                  // file path
+                  $spreadsheet = $reader->load($_FILES['file']['tmp_name']);
+                  $allDataInSheet = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+                  
+                  // array Count
+                  $arrayCount = count($allDataInSheet);
+                  
+                  for ($i = 1; $i <= $arrayCount; $i ++) {
+                    if($i > 1){
+                      
+                      
+                        $first_name =  $allDataInSheet[$i]['A'];
+                        $middle_name =  $allDataInSheet[$i]['B'];
+                        $last_name =  $allDataInSheet[$i]['C'];
+                        $dob =  $allDataInSheet[$i]['D'];
+                        $gender =  $allDataInSheet[$i]['E'];
+                        $email =  $allDataInSheet[$i]['F'];
+
+                        $country_code =  $allDataInSheet[$i]['G'];
+                        $mobile_no =  $allDataInSheet[$i]['H'];
+                        $std_code =  $allDataInSheet[$i]['I'];
+                        $landline_no =  $allDataInSheet[$i]['J'];
+                        $whatsapp_number =  $allDataInSheet[$i]['K'];
+                        $fb_link =  $allDataInSheet[$i]['L'];
+                        $insta_link =  $allDataInSheet[$i]['M'];
+                        $youtube_link =  $allDataInSheet[$i]['N'];
+                        $twitter_link =  $allDataInSheet[$i]['O'];
+
+                        $address_1 =  $allDataInSheet[$i]['P'];
+                        $address_2 =  $allDataInSheet[$i]['Q'];
+                        $address_3 =  $allDataInSheet[$i]['R'];
+                        $pincode =  $allDataInSheet[$i]['S'];
+                        $area =  $allDataInSheet[$i]['T'];
+                        $city =  $allDataInSheet[$i]['U'];
+                        $state =  $allDataInSheet[$i]['V'];
+                        $country =  $allDataInSheet[$i]['W'];
+
+                        $category_1 =  $allDataInSheet[$i]['X'];
+                        $category_2 =  $allDataInSheet[$i]['Y'];
+                        $description =  $allDataInSheet[$i]['Z'];
+
+                        $brand_name =  $allDataInSheet[$i]['AA'];
+
+                        $words_describe =  $allDataInSheet[$i]['AB'];
+                        $product_best_at =  $allDataInSheet[$i]['AC'];
+                        $veg_non_veg =  $allDataInSheet[$i]['AD'];
+                        $fssai =  $allDataInSheet[$i]['AE'];
+                        $fssaino =  $allDataInSheet[$i]['AF'];
+                        $gst_no =  $allDataInSheet[$i]['AG'];
+                        $gst_number =  $allDataInSheet[$i]['AH'];
+                        
+
+                        $user = new DMS;
+                        $user->first_name = $first_name;
+                        $user->middle_name = $middle_name;
+                        $user->last_name = $last_name;
+                        $user->dob = date('Y-m-d',strtotime($dob));
+                        $user->gender = $gender;
+
+                        $user->country_code = $country_code;
+                        $user->mobile_no = $mobile_no;
+                        $user->std_code = $std_code;
+                        $user->landline_no = $landline_no;
+                        $user->email = $email;
+                        $user->whatsapp_number = $whatsapp_number;
+                        $user->fb_link = $fb_link;
+                        $user->insta_link = $insta_link;
+                        $user->youtube_link = $youtube_link;  
+                        $user->twitter_link = $twitter_link;  
+                        $user->address_1 = $address_1;
+                        $user->address_2 = $address_2;
+                        $user->address_3 = $address_3;
+                        $user->pincode = $pincode;
+                        $user->area = $area;
+                        $user->city = $city;
+                        $user->state = $state;
+                        $user->country = $country;
+                        $user->category_1 = $category_1;
+                        $user->category_2 = $category_2;
+                        $user->description = $description;
+
+                        
+                        $user->brand_name = $brand_name;
+
+                        $user->words_describe = $words_describe;
+                        $user->product_best_at = $product_best_at;
+                        $user->veg_non_veg = $veg_non_veg;
+                        $user->fssai = $fssai;
+                        $user->fssai_no = $fssaino;
+                        
+                        $user->gst_no = $gst_no;
+                        $user->gst_number = $gst_number;
+                        $user->save();
+
+                      
+                      
+                    }
+                    
+
+                  }
+                  $msg = "Data inserted Successfully.";
+                  $arr = array("status" => 200, "msg" => $msg, "result" => array());
+              } catch (\Illuminate\Database\QueryException $ex) {
+                  $msg = $ex->getMessage();
+                  if (isset($ex->errorInfo[2])) :
+                      $msg = $ex->errorInfo[2];
+                  endif;
+                 
+                  $arr = array("status" => 400, "msg" => $msg, "result" => array());
+              } catch (Exception $ex) {
+                  $msg = $ex->getMessage();
+                  if (isset($ex->errorInfo[2])) :
+                      $msg = $ex->errorInfo[2];
+                  endif;
+                
+                  $arr = array("status" => 400, "msg" => $msg, "result" => array());
+              }
+             
+          }
+          return \Response::json($arr);
+          /******************************* Form Submit edn *********************/
         }
-        return \Response::json($arr);
-        
     }
     public function getErrors()
     {
