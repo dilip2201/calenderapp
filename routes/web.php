@@ -20,6 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => ['check-permission:super_admin|user']], function () {
 
 Route::get('/user/data/{token}', 'DMSFormController@index');
 Route::post('userstepload', ['as' => 'userstepload', 'uses' => 'DMSFormController@stepload']);
@@ -70,6 +71,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
    // });
         
 	
+});
 });
 
 
