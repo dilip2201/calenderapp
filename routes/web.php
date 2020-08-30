@@ -22,6 +22,21 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/user/data/{token}', 'DMSFormController@index');
+Route::post('userstepload', ['as' => 'userstepload', 'uses' => 'DMSFormController@stepload']);
+Route::post('user/gotopreviouspage', ['as' => 'gotopreviouspage', 'uses' => 'DMSFormController@gotopreviouspage']);
+Route::post('user/storetwo', ['as' => 'user.storetwo', 'uses' => 'DMSFormController@storetwo']);
+
+
+Route::post('user/storeone', ['as' => 'user.storeone', 'uses' => 'DMSFormController@storeone']);
+Route::post('user/storethree', ['as' => 'user.storethree', 'uses' => 'DMSFormController@storethree']);
+Route::post('user/storefour', ['as' => 'user.storefour', 'uses' => 'DMSFormController@storefour']);
+Route::post('user/storefive', ['as' => 'user.storefive', 'uses' => 'DMSFormController@storefive']);
+Route::post('user/storesix', ['as' => 'user.storesix', 'uses' => 'DMSFormController@storesix']);
+Route::post('user/storeseven', ['as' => 'user.storeseven', 'uses' => 'DMSFormController@storeseven']);
+Route::get('success', ['as' => 'user.success', 'uses' => 'DMSFormController@success']);
+Route::get('alreadysubmitted', ['as' => 'user.alreadysubmitted', 'uses' => 'DMSFormController@alreadysubmitted']);
+
+Route::post('user/pincode', ['as' => 'user.pincode', 'uses' => 'DMSFormController@pincode']);
 
 
 
