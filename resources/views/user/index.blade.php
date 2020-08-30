@@ -63,68 +63,6 @@
                     if (data.status == 200) {
                         $('.loaddashboard').html(data.html);
 
-                        file_up_names=[]
-                        Dropzone.options.imageUpload = {
-                          addRemoveLinks: true,
-                          acceptedFiles: ".jpeg,.jpg,.png,.gif",
-                          
-                          
-                          init: function() {
-                            
-                            this.on('success', function(file, response) {
-                              $(file.previewElement).find('.dz-filename').text(response.image);
-                                          // file.previewElement.querySelector("img").src = response;
-                                      });
-                            this.on('error', function(file, response) {
-
-                              $(file.previewElement).find('.dz-error-message').text(response);
-                                          // $(file.previewElement).find('.dz-filename').text("");
-
-                                          this.removeFile(file);
-                                          alert("Error! Files of this type are not accepted");
-
-
-                                          //console.log(file);
-                                      });
-                            this.on("removedfile", function (file) {
-                              var server_file = $(file.previewElement).find('.dz-filename').text();       
-                              file_up_names.splice( $.inArray(server_file,file_up_names) ,1 );
-                              $('.upload').val(file_up_names);
-                              $.ajax({
-                                type: 'post',
-                                url: "{{ route('delete.image') }}",
-                                data:{
-                                  '_token': '{{ csrf_token() }}',
-                                  removefile: server_file
-                                },
-                                error: function(errors) {
-                                  console.log(errors)
-
-                                },
-                                success: function (data) {
-                                  console.log(data);
-
-                                }
-                              })
-                            });
-                          },
-                          accept: function(file, done) {
-                            if (file.type != "image/jpeg" && file.type != "image/png" && file.type != "image/jpg" ) {
-                              $(file.previewElement).find('.dz-filename').text("");
-                              done("Error! Files of this type are not accepted");
-                            }
-                            else { 
-                              done(); 
-                            }
-                          },
-                          success: function(file, response) {
-                            var imageSrc = response.image;
-                            $(".img-responsive").attr('src', response.url);
-                            file_up_names.push(response.image);
-                            $('.upload').val(file_up_names);
-
-                          }
-                        };
 
   
                         $('.formsubmittrack').validate({
