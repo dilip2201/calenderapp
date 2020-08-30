@@ -130,7 +130,7 @@
 </div>
 <!-- /.modal -->
 <div class="modal fade import_excel" >
-   <div class="modal-dialog modal-sm">
+   <div class="modal-dialog modal-lg">
       <div class="modal-content">
          <div class="modal-header" style="padding: 5px 15px;">
             <h5 class="modal-title">{{ __('Import Excel') }}</h5>
