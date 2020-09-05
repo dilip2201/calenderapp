@@ -8,7 +8,15 @@
                             <li class="nav-item mobile-menu d-xl-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ficon feather icon-menu"></i></a></li>
                         </ul>
                         <ul class="nav navbar-nav bookmark-icons">
-                            <li class="nav-item d-none d-lg-block"><a style="padding: 0px;" class="nav-link" href="{{ url('admin/dashboard') }}" data-toggle="tooltip" data-placement="top"><img src="{{ URL::asset('public/images/favicon.png') }}" style="    height: 51px;"></a></li>
+                            <li class="nav-item d-none d-lg-block"><a style="padding: 0px;
+    border: 1px solid #000;
+    border-radius: 50%;
+    width: 53px;
+    height: 53px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    display: inline-flex;" class="nav-link" href="{{ url('admin/dashboard') }}" data-toggle="tooltip" data-placement="top"><img src="{{ URL::asset('public/images/favicon.png') }}" style="    height: 45px;"></a></li>
                            
                         </ul>
                        

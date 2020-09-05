@@ -67,36 +67,20 @@
                                                <strong><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp; Email ID :  </strong>{{ $dms->email ?? '-' }} &nbsp;&nbsp;&nbsp;  
 									          <br>
 									          <hr>
-                                              @php
-                                                  $c_code = '';
-                                                  if(!empty($q->country_code)){
-                                                     $c_code.= " ".$q->country_code.' ';
-                                                  }
-                                                  if(!empty($q->mobile_no)){
-                                                     $c_code.= " ".$q->mobile_no;
-                                                  }
-                                              @endphp
-									          <strong><i class="fa fa-mobile" aria-hidden="true"></i>&nbsp; Mobile Number :  </strong>{{ $c_code ?? '-' }} &nbsp;&nbsp;&nbsp; 
-									          <br>
-									          <hr>
-                                              @php
-                                                  $s_code = '';
-                                                  if(!empty($q->country_code)){
-                                                     $c_code.= " ".$q->country_code.' ';
-                                                  }
-                                                  if(!empty($q->std_code)){
-                                                     $c_code.= " ".$q->std_code;
-                                                  }
-                                              @endphp
-									          <strong><i class="fa fa-mobile" aria-hidden="true"></i>&nbsp; Std No. :  </strong>{{ $s_code }} &nbsp;&nbsp;&nbsp; 
-									          <br>
-									          <hr>
-									           <strong><i class="fa fa-mobile" aria-hidden="true"></i>&nbsp; Landline Number :  </strong>{{ $dms->landline_no ?? '-' }} &nbsp;&nbsp;&nbsp; 
-									          <br>
-									          <hr>
-									           <strong><i class="fa fa-whatsapp" aria-hidden="true"></i>&nbsp; WhatsApp-number :  </strong>{{ $dms->whatsapp_number ?? '-' }} &nbsp;&nbsp;&nbsp; 
-									          <br>
-									          <hr>
+                                             
+                  									          <strong><i class="fa fa-mobile" aria-hidden="true"></i>&nbsp; Mobile Number :  </strong>+{{ $dms->country_code.$dms->mobile_no }} &nbsp;&nbsp;&nbsp; 
+                  									          <br>
+                  									          <hr>
+                                              
+                  									          <strong><i class="fa fa-mobile" aria-hidden="true"></i>&nbsp; Std No. :  </strong>{{ $dms->std_code }} &nbsp;&nbsp;&nbsp; 
+                  									          <br>
+                  									          <hr>
+                  									           <strong><i class="fa fa-mobile" aria-hidden="true"></i>&nbsp; Landline Number :  </strong>{{ $dms->landline_no ?? '-' }} &nbsp;&nbsp;&nbsp; 
+                  									          <br>
+                  									          <hr>
+                  									           <strong><i class="fa fa-whatsapp" aria-hidden="true"></i>&nbsp; WhatsApp-number :  </strong>{{ $dms->whatsapp_number ?? '-' }} &nbsp;&nbsp;&nbsp; 
+                  									          <br>
+                  									          <hr>
                                             </div>
                                             <div class="tab-pane fade show" id="account-vertical-info" role="tabpanel" aria-labelledby="account-pill-info" aria-expanded="false">
                                                  <strong><i class="fa fa-facebook-f" aria-hidden="true"></i>&nbsp; Facebook Link :  </strong>{{ $dms->fb_link ?? '-' }} &nbsp;&nbsp;&nbsp;  
@@ -116,7 +100,7 @@
                                               <strong><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp; Street/Avenue :  </strong>{{ $dms->address_1 ?? '-' }} &nbsp;&nbsp;&nbsp;  
 									          <br>
 									          <hr>
-									          <strong><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp; Apartment / Nº :  </strong>{{ $dms->address_2 ?? '-' }} &nbsp;&nbsp;&nbsp; 
+									          <strong><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp; Apartment / No :  </strong>{{ $dms->address_2 ?? '-' }} &nbsp;&nbsp;&nbsp; 
 									          <br>
 									          <hr>
 									          <strong><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp; Extra indications :  </strong>{{ $dms->address_3 ?? '-' }} &nbsp;&nbsp;&nbsp; 

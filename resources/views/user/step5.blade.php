@@ -1,17 +1,17 @@
-<form method="post" action="{{ route('user.storefive') }}"  class="form formsubmittrack">
-   <h3 class="heading">Tell us, what do you like to cook?</h3>
+   <form method="post" action="{{ route('user.storefive') }}"  class="form formsubmittrack">
+   <h3 class="heading">Tell us, who are you?</h3>
    <input type="hidden" name="token" value="{{ $token }}">
    <select id="field" name="category_1" class="select-field w-select">
       <option value="">Category...</option>
-      <option value="one" @if(!empty($tokendata) && $tokendata->category_1 == 'one') selected @endif>one</option>
-      <option value="two" @if(!empty($tokendata) && $tokendata->category_1 == 'two') selected @endif>two</option>
+      <option value="1" @if(!empty($tokendata) && $tokendata->category_1 == '1') selected @endif>Foodie/Food lover</option>
+      <option value="2" @if(!empty($tokendata) && $tokendata->category_1 == '2') selected @endif>Home Chef</option>
+      <option value="3" @if(!empty($tokendata) && $tokendata->category_1 == '3') selected @endif>Food Blogger</option>
+      <option value="4" @if(!empty($tokendata) && $tokendata->category_1 == '4') selected @endif>Recipe Publisher</option>
+      <option value="5" @if(!empty($tokendata) && $tokendata->category_1 == '5') selected @endif>Food Professional</option>
+      <option value="6" @if(!empty($tokendata) && $tokendata->category_1 == '6') selected @endif>Professional chef</option>
       
    </select>
-   <select id="Subcategory" name="category_2"  class="select-field w-select">
-       <option value="">Subcategory</option>
-      <option value="one" @if(!empty($tokendata) && $tokendata->category_2 == 'one') selected @endif>one</option>
-      <option value="two" @if(!empty($tokendata) && $tokendata->category_2 == 'two') selected @endif>two</option>
-   </select>
+   
    <textarea rows="3" name="description" class="text-field description w-input" placeholder="Description">@if(!empty($tokendata)){{ $tokendata->description ?? '' }}@endif</textarea>
    <div class="div-next">
       <a class="submit-button w-button previousclick" data-planid="{{ $token }}" data-type="previous" data-pageid="4" style="background: #ffbb05; color: #000; ">

@@ -7,7 +7,12 @@
             	<input type="text" class="text-field w-input" value="@if(!empty($tokendata)){{ $tokendata->address_3 ?? '' }}@endif"  name="address_3" placeholder="Extra indications" id="Address-3">
             </div>
             <div class="div-block-3">
-            	<input type="text" class="text-field w-input pincode" value="@if(!empty($tokendata)){{ $tokendata->pincode ?? '' }}@endif" name="pincode" placeholder="Pin Code">
+            	<div class="new" style="position: relative;">
+                  <input type="text" class="text-field w-input pincode" value="@if(!empty($tokendata)){{ $tokendata->pincode ?? '' }}@endif" name="pincode" placeholder="Pin Code">
+                  <span class="spinnerload" style="position: absolute;
+    top: 10px;
+    right: 10px;">
+                  </div>
             	<input type="text" class="text-field w-input area"  value="@if(!empty($tokendata)){{ $tokendata->area ?? '' }}@endif" name="area" placeholder="Area" >
             </div>
             <input type="text" class="text-field w-input city" value="@if(!empty($tokendata)){{ $tokendata->city ?? '' }}@endif"  name="city" placeholder="City" >

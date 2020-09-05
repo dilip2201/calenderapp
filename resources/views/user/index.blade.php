@@ -12,30 +12,30 @@
       <link href="{{ URL::asset('public/steps/css/formfoodism.webflow.css') }}" rel="stylesheet" type="text/css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+      <link rel="stylesheet" type="text/css" href="{{ URL::asset('public/admin/Pnotify/pnotify.custom.min.css') }}" />
       <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
       <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
       <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
       <link href="images/webclip.png" rel="apple-touch-icon">
       <style type="text/css">
-        label.error{
-              color: red!important;
-            font-size: 14px!important;
-            margin-top: -10px!important;
-            margin-left: 5px!important;
-            font-weight: 100!important;
-        }
+         label.error{
+         color: red!important;
+         font-size: 14px!important;
+         margin-top: -10px!important;
+         margin-left: 5px!important;
+         font-weight: 100!important;
+         }
       </style>
    </head>
    <body>
       <div class="section" style="background-size: contain; background-image: url('{{ url("public/app-assets/images/pages/vuexy-login-bg.png") }}') ">
-         <div class="div-block">
-            <div class="w-layout-grid grid">
-               <div id="w-node-d54fb76ef8b2-d9830c5d" class="div-block-4"><img src="{{ URL::asset('public/steps/images/foodism-new-logo.png') }}" height="" alt="" class="image"></div>
-               <div class="form-block w-form loaddashboard">
-                  
-               </div>
+      <div class="div-block">
+         <div class="w-layout-grid grid">
+            <div id="w-node-d54fb76ef8b2-d9830c5d" class="div-block-4"><img src="{{ URL::asset('public/steps/images/foodism-new-logo.png') }}" height="" alt="" class="image"></div>
+            <div class="form-block w-form loaddashboard">
             </div>
          </div>
+      </div>
       </div>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="{{ URL::asset('public/steps/js/webflow.js') }}" type="text/javascript"></script>
@@ -43,6 +43,7 @@
       <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.css" rel="stylesheet">
       <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
+      <script src="{{ URL::asset('public/admin/Pnotify/pnotify.custom.min.js') }}"></script>
       <script type="text/javascript">
          function loadstepsplanday() {
             var token = "{{ $token }}";
@@ -62,9 +63,9 @@
                     }
                     if (data.status == 200) {
                         $('.loaddashboard').html(data.html);
-
-
-  
+         
+         
+         
                         $('.formsubmittrack').validate({
                           rules: {
                                 first_name: {
@@ -75,13 +76,7 @@
                                     maxlength: 50
                                 },
                                 last_name: {
-                                    required: true,
-                                    maxlength: 50
-                                },
-                                dob: {
-                                    required: true,
-                                },
-                                gender: {
+                                    maxlength: 50,
                                     required: true,
                                 },
                                 email: {
@@ -110,7 +105,6 @@
                                   url: true,
                                 },
                                 address_1: {
-                                    required: true,
                                     maxlength: 50
                                 },
                                 address_2:{
@@ -143,9 +137,9 @@
                     toastr.error('Something went wrong!', 'Oh No!');
                 }
             });
-        }
-        $(function () {
-
+         }
+         $(function () {
+         
           $('body').on('click','.valuecheck',function(){
              if ($('.valuecheck').is(":checked")) { 
                        $('.whatsapp_number').val($('.mobile_no').val());
@@ -181,13 +175,75 @@
                             loadstepsplanday();
                         }
                     },
-
+         
+                });
+          });
+         
+          $('body').on('submit', '.formsubmittracklastpage', function (e) {
+                e.preventDefault();
+                var action = $(this).attr('action');
+                var data = new FormData(this);
+         
+                (new PNotify({
+                title: "Confirmation Needed",
+                text: "Once you submit, you will not be able to change the data. Are you sure you want to Submit?",
+                icon: 'glyphicon glyphicon-question-sign',
+                hide: false,
+                confirm: {
+                    confirm: true
+                },
+                buttons: {
+                    closer: false,
+                    sticker: false
+                },
+                history: {
+                    history: false
+                },
+                addclass: 'stack-modal',
+                stack: {
+                    'dir1': 'down',
+                    'dir2': 'right',
+                    'modal': true
+                }
+            })).get().on('pnotify.confirm', function () {
+                 $.ajax({
+                    url: action,
+                    data: data,
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    type: 'POST',
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    beforeSend: function () {
+                        $('.spinner').html('<i class="fa fa-spinner fa-spin"></i>');
+                    },
+                    success: function (data) {
+                        if (data.redirect == 1) {
+                            window.location.href = "{{ url('integration/dashboard/active/plan/'.encrypt(1)) }}";
+                        }
+                        $('.pricesticky').css('display', 'none');
+                        if (data.status == 400) {
+                            $('.spinner').html('');
+                            toastr.error(data.msg, 'Oh No!');
+                        }
+                        if (data.status == 200) {
+                            loadstepsplanday();
+                        }
+                    },
+         
                 });
             });
-
+         
+         
+         
+               
+          })
+         
             $('body').on('keyup','.pincode',function(){
               var pincode = $(this).val();
-
+         
               if(pincode.length ==6 ){
                 $.ajax({
                     url: "{{ route('user.pincode') }}",
@@ -196,7 +252,11 @@
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
                     type: 'POST',
+                    beforeSend: function () {
+                        $('.spinnerload').html('<i class="fa fa-spin fa-spinner"></i></span>');
+                    },
                     success: function (data) {
+                      $('.spinnerload').html('');
                         if (data.status == 200) {
                           
                             $('.area').val(data.data.postalLocation);
@@ -239,9 +299,8 @@
                     },
                 });
             });
-
+         
          });
       </script>
-      
    </body>
 </html>

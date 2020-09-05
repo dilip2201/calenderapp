@@ -112,6 +112,9 @@
                   <thead>
                      <tr>
                         <th><h3><b>Name</b></h3></th>
+                        <th><h3><b>Date Of Birth</b></h3></th>
+                        <th><h3><b>Gender</b></h3></th>
+                        <th><h3><b>Whatsapp Number</b></h3></th>
                          <th><h3><b>Mobile No.</b></h3></th>
                           <th><h3><b>Email</b></h3></th>
                            <th><h3><b>Address</b></h3></th>
@@ -131,7 +134,7 @@
                      $address.= " ".$user->address_1.',';
                   }
                   if(!empty($user->address_2)){
-                     $address.= " ".$user->address_1.',';
+                     $address.= " ".$user->address_2.',';
                   }
                   if(!empty($user->address_2)){
                      $address.= " ".$user->address_3.',';
@@ -155,27 +158,29 @@
                      $address.= " ".$user->pincode.',';
                   }
 
+                  $address = rtrim($address, ',');
+
+
                   $name = '';
                   if(!empty($user->first_name)){
-                     $name.= " ".$user->first_name.',';
+                     $name.= $user->first_name.' ';
                   }
                   if(!empty($user->middle_name)){
-                     $name.= " ".$user->middle_name.',';
+                     $name.= $user->middle_name.' ';
                   }
                   if(!empty($user->last_name)){
-                     $name.= " ".$user->last_name.',';
+                     $name.= $user->last_name;
                   }
 
-                  $c_code = '';
-                  if(!empty($user->country_code)){
-                     $c_code.= " ".$user->country_code.',';
-                  }
-                  if(!empty($user->mobile_no)){
-                     $c_code.= " ".$user->mobile_no.',';
-                  }
+
+                   $c_code= $user->country_code.$user->mobile_no;
                   @endphp
                   <tr>
                      <td>{{ $name }}</td>
+                     <td>{{ date('d M Y',strtotime($user->dob)) }}</td>
+                     <td>{{ ucfirst($user->gender) }} </td>
+                     <td>{{ $user->whatsapp_number }} </td>
+
                      <td>{{ $c_code }} </td>
                      <td>{{ $user->email ?? '' }}</td>
                      <td>{{ $address }}</td>

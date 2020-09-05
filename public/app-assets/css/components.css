@@ -135,8 +135,9 @@ html body p {
   line-height : 1.5rem;
 }
 html body.bg-full-screen-image {
-  background : url(../../app-assets/images/pages/vuexy-login-bg.png);
+  background-image: url(../../app-assets/images/pages/vuexy-login-bg.png);
   background-size : contain;
+  background-color: rgba(244, 187, 5, 0.5);
 }
 html body.blank-page .content {
   margin-left : 0;
@@ -156,7 +157,7 @@ html body.blank-page .content.app-content:before {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: black;
+    
     background-repeat: no-repeat;
     background-size: 100%;
     opacity: 0.4;

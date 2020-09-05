@@ -3,7 +3,7 @@
    <input type="hidden" name="token" value="{{ $token }}">
    <input type="email" class="text-field w-input"  name="email" value="@if(!empty($tokendata)){{ $tokendata->email ?? '' }}@endif" placeholder="Email ID" required>
    <div class="div-block-2">
-      <select id="Country-Code" name="country_code" data-name="Country Code" class="select-field w-select">
+      <select id="Country-Code" style="color: #000000;" name="country_code" data-name="Country Code" class="select-field w-select">
          @foreach(countryarray() as $country)
          <option value="{{ $country['code'] }}" 
          @if(!empty($tokendata) && !empty($tokendata->country_code)) 

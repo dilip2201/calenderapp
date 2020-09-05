@@ -56,6 +56,7 @@ class DMSFormController extends Controller
     public function storeone(Request $request) {
         $rules = [
             'first_name' => 'required',
+            'image' => 'nullable|mimes:jpeg,jpg,png'
            
         ];
         $validator = Validator::make($request->all(), $rules);
@@ -76,6 +77,15 @@ class DMSFormController extends Controller
                     $td->last_name = $request->last_name;
                     $td->dob = $request->dob;
                     $td->gender = $request->gender;
+                    if ($request->hasFile('image')) {
+                        $destinationPath = public_path().'/company/employee';
+                        $file = $request->image;
+                        $fileName = time() . '.'.$file->clientExtension();
+                        $file->move($destinationPath, $fileName);
+                        $td->image = $fileName;
+                    }
+
+
                     $td->step = 2;
                     $td->save();
                     $msg = 'Success';
@@ -295,7 +305,7 @@ class DMSFormController extends Controller
         return \Response::json($arr);
     }
 
-    public function storesix(Request $request) {
+    public function storesixold(Request $request) {
         $rules = [
             'brand_name' => 'nullable',
         ];
@@ -314,19 +324,7 @@ class DMSFormController extends Controller
                 $tokendata = TempTokens::where('random',$token)->first();
                 if(!empty($tokendata)){
                     $td = TempTokens::find($tokendata->id);
-
-
-                    if ($request->hasFile('image')) {
-                        $destinationPath = public_path().'/company/employee';
-                        $file = $request->image;
-                        $fileName = time() . '.'.$file->clientExtension();
-                        $file->move($destinationPath, $fileName);
-                        $td->image = $fileName;
-                    }
-
                     $td->brand_name = $request->brand_name;
-                    $td->words_describe = $request->words_describe;
-                    $td->product_best_at = $request->product_best_at;
                     if($request->veg_non_veg == '1'){
                         $td->veg_non_veg = 'Veg';
                     }else{
@@ -379,10 +377,15 @@ class DMSFormController extends Controller
                     
                     $td = TempTokens::find($tokendata->id);
                     $td->fssai = $request->fssai;
-                    $td->fssai_no = $request->fssai_no;
                     $td->gst_no = $request->gst_no;
-                    $td->gst_number = $request->gst_number;
-                    $td->step = 8;
+                    $td->brand_name = $request->brand_name;
+                    if($request->veg_non_veg == '1'){
+                        $td->veg_non_veg = 'Veg';
+                    }else{
+                        $td->veg_non_veg = 'Non-Veg';
+                    }
+
+                    $td->step = 7;
                     $td->save();
 
 
@@ -424,6 +427,7 @@ class DMSFormController extends Controller
                     $dms->fssai_no = $td->fssai_no;
                     $dms->gst_no = $td->gst_no;
                     $dms->gst_number = $td->gst_number;
+                    $dms->data_source = 'direct';
                     $dms->save();
 
                     $msg = 'Success';
@@ -469,7 +473,6 @@ class DMSFormController extends Controller
                 if(!empty($tokendata)){
                     $td = TempTokens::find($tokendata->id);
                     $td->category_1 = $request->category_1;
-                    $td->category_2 = $request->category_2;
                     $td->description = $request->description;
                     $td->step = 6;
                     $td->save();
@@ -530,11 +533,8 @@ class DMSFormController extends Controller
                 $html = view('user.step6',compact('token','tokendata'))->render();
                 return array("status" => 200, "html" => $html);
             }
+            
             if($step == 7){
-                $html = view('user.step7',compact('token','tokendata'))->render();
-                return array("status" => 200, "html" => $html);
-            }
-            if($step == 8){
                 if($tokendata->final_submit == '1'){
                     return array("status" => 201);
                 }

@@ -35,7 +35,6 @@
                <select class="form-control" name="role">
                    <option value="super_admin" @if(!empty($user) && $user->role == 'super_admin') selected @endif>Super Admin</option>
                    <option value="user" @if(!empty($user) && $user->role == 'user') selected @endif>User</option>
-                   <option value="operator" @if(!empty($user) && $user->role == 'operator') selected @endif>Operator</option>
                </select>
             </div>
         </div>

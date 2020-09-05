@@ -28,7 +28,9 @@ class DMSController extends Controller
     public function index()
     {
        
-        return view('admin.dms.index');
+        $pincodes = \DB::table('dms')->distinct('pincode')->select('pincode')->get();
+        
+        return view('admin.dms.index',compact('pincodes'));
     }
 
     /**
@@ -49,6 +51,12 @@ class DMSController extends Controller
         if (isset($request->gst_no) && !empty($request->gst_no)) {
             $dms = $dms->where('gst_no',$request->gst_no);
         } 
+        if (isset($request->pincodevalud) && !empty($request->pincodevalud) && $request->pincodevalud != 'no_pin') {
+            $dms = $dms->where('pincode',$request->pincodevalud);
+        } 
+        if (!empty($request->pincodevalud) && $request->pincodevalud == 'no_pin') {
+            $dms = $dms->whereNull('pincode');
+        } 
         $dms = $dms->get();
         return DataTables::of($dms)
             ->addColumn('action', function ($q) {
@@ -62,26 +70,11 @@ class DMSController extends Controller
 
             
             ->addColumn('name', function ($q) {
-                  $name = '';
-                  if(!empty($q->first_name)){
-                     $name.= " ".$q->first_name.' ';
-                  }
-                  if(!empty($q->middle_name)){
-                     $name.= " ".$q->middle_name.' ';
-                  }
-                  if(!empty($q->last_name)){
-                     $name.= " ".$q->last_name;
-                  }
+                $name = $q->first_name.' '.$q->middle_name.' '.$q->last_name;
                 return $name;
             })
             ->addColumn('mobile_no', function ($q) {
-                  $c_code = '';
-                  if(!empty($q->country_code)){
-                     $c_code.= " ".$q->country_code.' ';
-                  }
-                  if(!empty($q->mobile_no)){
-                     $c_code.= " ".$q->mobile_no;
-                  }
+                  $c_code = '+'.$q->country_code.$q->mobile_no;
                 return $c_code;
             })
             ->addColumn('email', function ($q) {
@@ -124,6 +117,12 @@ class DMSController extends Controller
             ->addColumn('veg_non_veg', function ($q) {
                 return $q->veg_non_veg;
             })
+            ->addColumn('fssai', function ($q) {
+                return ucfirst($q->fssai);
+            })
+             ->addColumn('gst', function ($q) {
+                return ucfirst($q->gst_no);
+            })
             ->addIndexColumn()
             ->rawColumns(['action'])->make(true);
     }
@@ -143,7 +142,7 @@ class DMSController extends Controller
     {
         //
     }
-        public function downloadpdf(Request $request)
+    public function downloadpdf(Request $request)
     {
 
         $dmses = DMS::orderby('id', 'desc');
@@ -156,7 +155,12 @@ class DMSController extends Controller
         if (isset($request->gst_no) && !empty($request->gst_no)) {
             $dmses = $dmses->where('gst_no',$request->gst_no);
         } 
-        
+        if (isset($request->pincodevalud) && !empty($request->pincodevalud) && $request->pincodevalud != 'no_pin') {
+            $dmses = $dmses->where('pincode',$request->pincodevalud);
+        } 
+        if (!empty($request->pincodevalud) && $request->pincodevalud == 'no_pin') {
+            $dmses = $dmses->whereNull('pincode');
+        } 
         $dmses = $dmses->get();
         
         if($request->submittype == 'pdf') {
@@ -167,23 +171,96 @@ class DMSController extends Controller
             $spreadsheet = new Spreadsheet();
             $sheet = $spreadsheet->getActiveSheet();
 
-            $sheet->setCellValue('A1', 'Name');
+            $sheet->setCellValue('A1', 'First Name');
             $sheet->getColumnDimension('A')->setAutoSize(true);
 
-            $sheet->setCellValue('B1', 'Mobile No.');
+            $sheet->setCellValue('B1', 'Middle Name');
             $sheet->getColumnDimension('B')->setAutoSize(true);
 
-            $sheet->setCellValue('C1', 'Email');
+            $sheet->setCellValue('C1', 'Last Name');
             $sheet->getColumnDimension('C')->setAutoSize(true);
 
-            $sheet->setCellValue('D1', 'Address');
-            $sheet->getColumnDimension('C')->setAutoSize(true);
+            $sheet->setCellValue('D1', 'Date of Birth');
+            $sheet->getColumnDimension('D')->setAutoSize(true);
 
-            $sheet->setCellValue('E1', 'Description');
-            $sheet->getColumnDimension('C')->setAutoSize(true);
+            $sheet->setCellValue('E1', 'Gender');
+            $sheet->getColumnDimension('E')->setAutoSize(true);
 
-            $sheet->setCellValue('F1', 'Veg Non_Veg');
-            $sheet->getColumnDimension('C')->setAutoSize(true);
+            $sheet->setCellValue('F1', 'Email ID');
+            $sheet->getColumnDimension('F')->setAutoSize(true);
+
+            $sheet->setCellValue('G1', 'Country Code');
+            $sheet->getColumnDimension('G')->setAutoSize(true);
+
+            $sheet->setCellValue('H1', 'Mobile No');
+            $sheet->getColumnDimension('H')->setAutoSize(true);
+
+            $sheet->setCellValue('I1', 'STD Code');
+            $sheet->getColumnDimension('I')->setAutoSize(true);
+
+
+            $sheet->setCellValue('J1', 'Landline No.');
+            $sheet->getColumnDimension('J')->setAutoSize(true);
+
+            $sheet->setCellValue('K1', 'Whatsapp Number');
+            $sheet->getColumnDimension('K')->setAutoSize(true);
+            $sheet->setCellValue('L1', 'FB Link');
+            $sheet->getColumnDimension('L')->setAutoSize(true);
+            $sheet->setCellValue('M1', 'Insta Link');
+            $sheet->getColumnDimension('M')->setAutoSize(true);
+            $sheet->setCellValue('N1', 'Youtube Link');
+            $sheet->getColumnDimension('N')->setAutoSize(true);
+            $sheet->setCellValue('O1', 'Other social media links');
+            $sheet->getColumnDimension('O')->setAutoSize(true);
+
+
+            $sheet->setCellValue('P1', 'Street/Avenue');
+            $sheet->getColumnDimension('P')->setAutoSize(true);
+            $sheet->setCellValue('Q1', 'Apartment / No');
+            $sheet->getColumnDimension('Q')->setAutoSize(true);
+            $sheet->setCellValue('R1', 'Extra indications');
+            $sheet->getColumnDimension('R')->setAutoSize(true);
+            $sheet->setCellValue('S1', 'Pincode');
+            $sheet->getColumnDimension('S')->setAutoSize(true);
+
+            $sheet->setCellValue('T1', 'Area');
+            $sheet->getColumnDimension('T')->setAutoSize(true);
+            $sheet->setCellValue('U1', 'City');
+            $sheet->getColumnDimension('U')->setAutoSize(true);
+            $sheet->setCellValue('V1', 'State');
+            $sheet->getColumnDimension('BV')->setAutoSize(true);
+            $sheet->setCellValue('W1', 'Country');
+            $sheet->getColumnDimension('W')->setAutoSize(true);
+            $sheet->setCellValue('X1', 'Category');
+            $sheet->getColumnDimension('X')->setAutoSize(true);
+            $sheet->setCellValue('Y1', 'Subcategories');
+            $sheet->getColumnDimension('Y')->setAutoSize(true);
+            $sheet->setCellValue('Z1', 'Description');
+            $sheet->getColumnDimension('Z')->setAutoSize(true);
+            $sheet->setCellValue('AA1', 'Brand Name');
+            $sheet->getColumnDimension('AA')->setAutoSize(true);
+
+            $sheet->setCellValue('AB1', '5 words best describes you');
+            $sheet->getColumnDimension('AB')->setAutoSize(true);
+
+            $sheet->setCellValue('AC1', '10 Products you are best at');
+            $sheet->getColumnDimension('AC')->setAutoSize(true);
+
+            $sheet->setCellValue('AD1', 'Are Veg or Non-Veg?');
+            $sheet->getColumnDimension('AD')->setAutoSize(true);
+
+            $sheet->setCellValue('AE1', 'Do you have FSSAI?');
+            $sheet->getColumnDimension('AE')->setAutoSize(true);
+
+            $sheet->setCellValue('AF1', 'If yes, please provide us the number? (FSSAI)');
+            $sheet->getColumnDimension('AF')->setAutoSize(true);
+
+            $sheet->setCellValue('AG1', 'Do you have GST No.?');
+            $sheet->getColumnDimension('AG')->setAutoSize(true);
+
+            $sheet->setCellValue('AH1', 'If yes, please provide us the number? (GST)');
+            $sheet->getColumnDimension('AH')->setAutoSize(true);
+
 
    
 
@@ -195,10 +272,10 @@ class DMSController extends Controller
 
                   $address = '';
                   if(!empty($user->address_1)){
-                     $address.= " ".$user->address_1.',';
+                     $address.= $user->address_1.',';
                   }
                   if(!empty($user->address_2)){
-                     $address.= " ".$user->address_1.',';
+                     $address.= " ".$user->address_2.',';
                   }
                   if(!empty($user->address_2)){
                      $address.= " ".$user->address_3.',';
@@ -221,32 +298,48 @@ class DMSController extends Controller
                   if(!empty($user->pincode)){
                      $address.= " ".$user->pincode.',';
                   }
+                  $address = rtrim($address, ',');
+                 
 
-                  $name = '';
-                  if(!empty($user->first_name)){
-                     $name.= " ".$user->first_name.',';
-                  }
-                  if(!empty($user->middle_name)){
-                     $name.= " ".$user->middle_name.',';
-                  }
-                  if(!empty($user->last_name)){
-                     $name.= " ".$user->last_name.',';
-                  }
+                  $c_code= $user->country_code.$user->mobile_no;
+                  
+                  $sheet->setCellValue('A' . $i, $user->first_name);
+                  $sheet->setCellValue('B' . $i, $user->middle_name);
+                  $sheet->setCellValue('C' . $i, $user->last_name);
+                  $sheet->setCellValue('D' . $i, $user->dob);
+                  $sheet->setCellValue('E' . $i, $user->gender);
+                  $sheet->setCellValue('F' . $i, $user->email);
+                  $sheet->setCellValue('G' . $i, $user->country_code);
+                  $sheet->setCellValue('H' . $i, $user->mobile_no);
+                  $sheet->setCellValue('I' . $i, $user->std_code);
+                  $sheet->setCellValue('J' . $i, $user->landline_no);
+                  $sheet->setCellValue('K' . $i, $user->whatsapp_number);
+                  $sheet->setCellValue('L' . $i, $user->fb_link);
+                  $sheet->setCellValue('M' . $i, $user->insta_link);
+                  $sheet->setCellValue('N' . $i, $user->youtube_link);
+                  $sheet->setCellValue('O' . $i, $user->twitter_link);
+                  $sheet->setCellValue('P' . $i, $user->address_1);
+                  $sheet->setCellValue('Q' . $i, $user->address_2);
+                  $sheet->setCellValue('R' . $i, $user->address_3);
+                  $sheet->setCellValue('S' . $i, $user->pincode);
+                  $sheet->setCellValue('T' . $i, $user->area);
+                  $sheet->setCellValue('U' . $i, $user->city);
+                  $sheet->setCellValue('V' . $i, $user->state);
+                  $sheet->setCellValue('W' . $i, $user->country);
+                  $sheet->setCellValue('X' . $i, $user->category_1);
+                  $sheet->setCellValue('Y' . $i, $user->category_2);
+                  $sheet->setCellValue('Z' . $i, $user->description);
+                  $sheet->setCellValue('AA' . $i, $user->brand_name);
+                  $sheet->setCellValue('AB' . $i, $user->words_describe);
+                  $sheet->setCellValue('AC' . $i, $user->product_best_at);
+                  $sheet->setCellValue('AD' . $i, $user->veg_non_veg);
+                  $sheet->setCellValue('AE' . $i, $user->fssai);
+                  $sheet->setCellValue('AF' . $i, $user->fssai_no);
+                  $sheet->setCellValue('AG' . $i, $user->gst_no);
+                  $sheet->setCellValue('AH' . $i, $user->gst_number);
+                 
 
-                  $c_code = '';
-                  if(!empty($user->country_code)){
-                     $c_code.= " ".$user->country_code.',';
-                  }
-                  if(!empty($user->mobile_no)){
-                     $c_code.= " ".$user->mobile_no.',';
-                  }
-
-                    $sheet->setCellValue('A' . $i, $name);
-                    $sheet->setCellValue('B' . $i, $c_code);
-                    $sheet->setCellValue('C' . $i,$user->email ?? '');
-                    $sheet->setCellValue('D' . $i, $address);
-                    $sheet->setCellValue('E' . $i, $user->description ?? '');
-                    $sheet->setCellValue('F' . $i, $user->veg_non_veg ?? '');
+                  
           
                     $i++;
                 }
@@ -390,21 +483,21 @@ class DMSController extends Controller
                         }
                         $twitter_link =  $allDataInSheet[$i]['O'];
                         if(!empty($twitter_link) && !preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$twitter_link)) {
-                          $errors[$i][] = array('type'=>"Youtube Link",'error'=>"Invalid Other Social Media URL");  
+                          $errors[$i][] = array('type'=>"Other Social Media",'error'=>"Invalid Other Social Media URL");  
                         }
 
                         $address_1 =  $allDataInSheet[$i]['P'];
 
-                        if(!empty($address_1) &&  strlen($address_1) > 50) {
-                           $errors[$i][] = array('type'=>"Street/Avenue",'error'=>"Add no more than 50 char.");
+                        if(!empty($address_1) &&  strlen($address_1) > 100) {
+                           $errors[$i][] = array('type'=>"Street/Avenue",'error'=>"Add no more than 100 char.");
                         }
                         $address_2 =  $allDataInSheet[$i]['Q'];
-                        if(!empty($address_2) &&  strlen($address_2) > 50) {
-                           $errors[$i][] = array('type'=>"Apartment / No",'error'=>"Add no more than 50 char.");
+                        if(!empty($address_2) &&  strlen($address_2) > 100) {
+                           $errors[$i][] = array('type'=>"Apartment / No",'error'=>"Add no more than 100 char.");
                         }
                         $address_3 =  $allDataInSheet[$i]['R'];
-                        if(!empty($address_3) &&  strlen($address_3) > 50) {
-                           $errors[$i][] = array('type'=>"Extra indications",'error'=>"Add no more than 50 char.");
+                        if(!empty($address_3) &&  strlen($address_3) > 100) {
+                           $errors[$i][] = array('type'=>"Extra indications",'error'=>"Add no more than 100 char.");
                         }
 
                         $pincode =  $allDataInSheet[$i]['S'];

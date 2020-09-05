@@ -19,9 +19,9 @@
                         <div class="form-group row " style="margin-bottom: 0px;">
                         <form method="post" style="display: contents;"  action="{{route('admin.dms.downloadpdf')}}">
                                 {{ csrf_field() }}
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
-                                    <label><b>Status: </b>
+                                    <label><b>FSSAI Status</b>
                                     </label>
                                     <select class="form-control fssai" id="fssai" name="fssai">
                                         <option value="">Select FSSAI</option>
@@ -30,20 +30,9 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
-                                    <label><b>Veg Non-Veg: </b>
-                                    </label>
-                                    <select class="form-control veg_non_veg" id="veg_non_veg" name="veg_non_veg">
-                                        <option value="">Select Type</option>
-                                        <option value="veg">Veg</option>
-                                        <option value="non_veg">Non Veg</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label><b>GST: </b>
+                                    <label><b>GST Status: </b>
                                     </label>
                                     <select class="form-control gst_no" id="gst_no" name="gst_no">
                                         <option value="">Select Type</option>
@@ -52,10 +41,39 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label><b>Veg or Non-Veg?</b>
+                                    </label>
+                                    <select class="form-control veg_non_veg" id="veg_non_veg" name="veg_non_veg">
+                                        <option value="">Select Type</option>
+                                        <option value="Veg">Veg</option>
+                                        <option value="Non-Veg">Non-Veg</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label><b>Pincode?</b>
+                                    </label>
+                                    <select class="form-control pincodevalud" id="pincodevalud" name="pincodevalud">
+                                      <option value="">Select Pincode</option>
+                                      @if(!empty($pincodes))
+                                        @foreach($pincodes as $pincode)
+                                        @if(!empty($pincode->pincode))
+                                          <option value="{{ $pincode->pincode }}">{{ $pincode->pincode }}</option>
+                                        @endif
+                                          
+                                        @endforeach
+                                        <option value="no_pin">If No pincode</option>
+                                      @endif
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-md-3" style="padding-left: 0px;">
                                 <button type="button" class="btn btn-success  waves-effect waves-light searchdata"  style="margin-top:18px;"><i class="fa fa-search"></i> Search  <span
                                         class="spinner"></span></button>
-                                <a href="{{ route('admin.users.index') }}"  class="btn btn-danger waves-effect waves-light" style="margin-top: 18px;"><i class="fa fa-refresh" aria-hidden="true"></i> Reset</a>
+                                <a href="{{ route('admin.dms.index') }}"  class="btn btn-danger waves-effect waves-light" style="margin-top: 18px;"><i class="fa fa-refresh" aria-hidden="true"></i> Reset</a>
                             </div>
                             <div class="col-md-6" >
                                      
@@ -95,6 +113,8 @@
                             <th>Address</th>
                             <th>Description</th>
                             <th>Veg Non-Veg</th>
+                            <th>FSSAI</th>
+                            <th>GST</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -247,6 +267,7 @@
                         d.fssai = $("#fssai").val();
                         d.gst_no = $("#gst_no").val();
                         d.veg_non_veg = $("#veg_non_veg").val();
+                        d.pincodevalud = $('.pincodevalud').val();
                     }
                 },
                 columns: [
@@ -257,6 +278,8 @@
                     {data: 'address'},
                     {data: 'description'},
                     {data: 'veg_non_veg'},
+                    {data: 'fssai'},
+                    {data: 'gst'},
                     {data: 'action', orderable: false},
                 ]
             });
